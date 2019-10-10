@@ -55,7 +55,8 @@ public bool Equals(object obj){
 }
 ```
 
-Několik následujících příkladů ukazuje popsané chování.
+Několik následujících příkladů ukazuje popsané chování. První příklad ukazuje nejjednodušší případ kdy struktura obsahuje
+pouze hodnotový typ.
 
 ```csharp
 public struct MyThing
@@ -72,6 +73,7 @@ public static void Main()
     f.Equals(s);  // Provede bitovou kontrolu
 }
 ```
+Následující příklad ukazuje strukturu s vnořeným referenčním typem.
 
 ```csharp
 public struct MyThing
@@ -88,6 +90,10 @@ public static void Main()
     f.Equals(s);  // Provede kontrolu pomocí Equals -> zavolá tedy f.ReferenceType.Equals(s.ReferenceType);
 }
 ```
+Je důležité poznamenat že referenční typ nemusí být 
+obsažený přímo v porovnávané struktuře. Může také být zanořený hlouběji v hodnotovém objektu.
+
+Další příklad ukazuje uživatelem definovanou strukturu přepisující Equals.
 
 ```csharp
 public struct MyThing
@@ -114,6 +120,8 @@ public static void Main()
     f.Equals(s);  // Provede kontrolu pomocí Equals -> zavolá tedy f.ValueType.Equals(s.ValueType);
 }
 ```
+V tomto případě by také mohl hodnotový objekt přepisující Equals být zanořena hlouběji ve struktuře. 
+
 
 Z toho algoritmu plyne, že bitovou kontrolu nemůžeme provést pokud:
 
@@ -209,3 +217,7 @@ public bool Equals(object obj){
     return PerformBitwiseCheck(this, obj);
 }
 ```
+
+## Shrnutí
+
+Defaultní implmenetace ValueType.Equals v .NET Frameworku by měla být vždy přepsána jelikož obsahuje bug který může způsobit neočekávané chování aplikace. .NET Core tento bug opravuje a díky tomu je vhodné tuto implementaci používat ve většině případů. Problém může nastat u výpočetně intenzivních aplikací pro které může použití reflexe znamenat značné zpomalení. Toto zpomalení ale nemusí být ve skutečnosti problém díky optimalizaci pomocí bitové kontroly kterou .NET provádí. Ve výpočetně intezivních aplikací je tedy často vhodné nejdříve použít defaultní implementaci a až později optimalizovat místa ve kterých .NET vynutil porovnání pomocí reflexe.
