@@ -124,7 +124,7 @@ Což by mohlo způsobit bug.
 
 ## Bug v .NET Frameworku
 
-``Float`` a ``double`` jsou zajímavé datové typy, jelikož obsahují hodnoty 0.0 a -0.0, které jsou ekvivalentní, ale mají rozdílnou bitovou reprezentaci.
+``Float`` a ``double`` jsou výjmečné datové typy, jelikož obsahují hodnoty 0.0 a -0.0, které jsou ekvivalentní, ale mají rozdílnou bitovou reprezentaci.
 Tato vlastnost může způsobit bug v chování ``ValueType.Equals``. Pokud .NET použije porovnání pomocí bitů a struktura obsahuje ``float``
 nebo ``double``, může se stát, že výsledek porovnání bude chybný.
 
