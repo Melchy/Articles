@@ -92,25 +92,6 @@ public static void Main()
 ```csharp
 public struct MyThing
 {
-    public int ValueType;
-
-    public override bool Equals(object obj){
-        return false;
-    }
-}
-
-public static void Main()
-{
-    MyThing f, s;
-    f.ValueType = 0;
-    s.ValueType = 0;
-    f.Equals(s);  // Provede kontrolu pomocí Equals -> zavolá tedy f.ValueType.Equals(s.ValueType);
-}
-```
-
-```csharp
-public struct MyThing
-{
     public MyThing2 ValueType;
 }
 
