@@ -26,7 +26,7 @@ Z tohoto důvodu hodnotové objekty (struktury) přepisují chování Object.Equ
 Algoritmus, který porovnává hodnotové typy, funguje tak, že najde všechny fieldy porovnávaného typu a zavolá na nich Equals.
 Pokud je výsledek všech těchto porovnání ``True``, tak jsou oba hodnotové objekty ekvivalentní.
 Toto porovnávání je ale poměrně pomalé a proto se v některých případech použije bitová kontrola.
-Celý algoritmus metody ``ValueType.Equals(object obj)`` popisuje následující pseudokód:
+Celý algoritmus metody ``ValueType.Equals(object obj)`` popisuje následující zjednodušený kód:
 
 ```csharp
 public bool Equals(object obj){
@@ -38,7 +38,7 @@ public bool Equals(object obj){
     //Pokud this obsahuje referenční typ
     if(ContainsReferenceType(this))
         //Zavolej Equals na všech vnořených fieldech a pokud všechny vrátí true, vrať true
-        CallEqualsOnAllInnerFields(this, obj);
+        return CallEqualsOnAllInnerFields(this, obj);
 
     //Pokud některý ze zanořených fieldů obsahuje referenční typ
     if(InnerFieldContainsReferenceType(this))
@@ -51,7 +51,7 @@ public bool Equals(object obj){
         return CallEqualsOnAllInnerFields(this, obj);
 
     //Zkontroluj, zda jsou bity v paměti stejné u this a obj
-    PerformBitwiseCheck(this, obj);
+    return PerformBitwiseCheck(this, obj);
 }
 ```
 
@@ -187,7 +187,7 @@ public static void Main()
 Odstranění referenčního typu ze struktury tedy může způsobit chybné chování aplikace. Tento bug je naštěstí přítomný pouze v .NET Frameworku.
 NET Core upravilo chování ``ValueType.Equals`` tak, aby se zkontrolovalo, zda typ neobasuje žádný float nebo double před použitím bitové kontroly.
 
-.NET Core ``ValueType.Equals(object obj)`` v pseudokódu pak vypadá následovně:
+.NET Core ``ValueType.Equals(object obj)`` pak vypadá následovně:
 
 ```csharp
 public bool Equals(object obj){
@@ -201,18 +201,18 @@ public bool Equals(object obj){
     //Pokud this obsahuje double nebo float
     if(ContainsDoubleOrFloat(this))
         //Zavolej Equals na všech vnořených fieldech a pokud všechny vrátí true, vrať true
-        CallEqualsOnAllInnerFields(this, obj);
+        return CallEqualsOnAllInnerFields(this, obj);
     //Pokud některý ze zanořených fieldů obsahuje double nebo float
     if(InnerFieldContainsDoubleOrFloat(this))
         //Zavolej Equals na všech vnořených fieldech a pokud všechny vrátí true, vrať true
-        CallEqualsOnAllInnerFields(this, obj);
+        return CallEqualsOnAllInnerFields(this, obj);
 
 #endregion
 
     //Pokud this obsahuje referenční typ
     if(ContainsReferenceType(this))
         //Zavolej Equals na všech vnořených fieldech a pokud všechny vrátí true, vrať true
-        CallEqualsOnAllInnerFields(this, obj);
+        return CallEqualsOnAllInnerFields(this, obj);
 
     //Pokud některý ze zanořených fieldů obsahuje referenční typ
     if(InnerFieldContainsReferenceType(this))
@@ -225,6 +225,6 @@ public bool Equals(object obj){
         return CallEqualsOnAllInnerFields(this, obj);
 
     //Zkontroluj, zda jsou bity stejné pro this a obj
-    PerformBitwiseCheck(this, obj);
+    return PerformBitwiseCheck(this, obj);
 }
 ```
