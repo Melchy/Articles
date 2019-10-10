@@ -1,7 +1,7 @@
 # Jak funguje Struct Equals
 
 Každý objekt v C# dědí od bázové třídy ``Object``, která definuje metodu Equals sloužící k porovnávání objektů.
-Defaultní implementace této metody se chová stejně jako Object.ReferenceEquals(Object a, Object b). Porovnává
+Defaultní implementace této metody se chová stejně jako ``Object.ReferenceEquals(Object a, Object b)``. Porovnává
 tedy, zda reference objektů ukazují na stejné místo v paměti.
 
 Tento způsob ekvivalnce je vhodný, pouze pokud porovnáváme objekty předáváné referencí.
