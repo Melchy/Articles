@@ -17,10 +17,14 @@ Při modelování doménového modelu se také často stává že je potřeba ag
 Dokumentové databáze ulehčují ukládání a načítání agregátů ale přidávají jiné problémy. Ve výsledku není jednoduché určit zda Dokumentová databáze ušetří programátorům čas. V průměru by tento přístup neměl být o mnoho lepší než použití dvou modelů.
 
 ## Použití ORM pro mapování modelů
-Dalším řešením je nastavit ORM tak aby bylo schopné mapovat databázové tabulky na komplexní doménový model. Tento přístup není v .NETu příliš rozšířený jelikož Entity framework nepodporuje komplexní mapování objektů (hlavně ve starších verzích). Mimo .NET bublinu je ale tento přísup poměrně populární. Ve světě .NET se dá použít Nhybernate který umožňuje poměrně komplexní mapování. Bohužel ale Nhybernate
-není velcie populární a vypadá spíše jako stále méně používaná technologie.
+Dalším řešením je nastavit ORM tak aby bylo schopné mapovat databázové tabulky na komplexní doménový model. Tento přístup není v .NET příliš rozšířený jelikož Entity framework nepodporuje komplexní mapování objektů (hlavně ve starších verzích). Jedinou existující altrenativou je ORM hybernate které podporuje poměrně komplexní mapování. Bohužel ale Nhybernate není příliš populární a vypadá spíše jako stále méně používaná technologie. Pro mapování doménových modelů je ale použití ORM velice praktické. ORM nemá mnoho nevýhod snad jen komplexní mapování u některých složitých případů. Další nevýhodou může být použití netypované XML konfigurace. XML konfigurace je ale v moderní době často nahrazena silně typovaným fluent mapováním.
 
-//TODO
+## Další řešení
+Pro mapování doménového modelu se používá ještě několik dalších řešení. Všechny jsou ale podobně složité jako dva modely nebo neumožňují použití vytvoření doménového modelu. Pro úplnost tedy výjmenuji zbylá řešení a jejich nevýhody:
+
+1) Event sourcing - obtížná oprava eventů, práce s externími systémy, nutnost vytvoření dvou modelů, eventuální konzistence mezi read and write stranou.
+2) State backed aggregate - neumožňuje použití hodnotových objektů a zanořených entit.
+3) Dvě databáze - je potřeba vytvořit dva modely a provést mezi nimi mapování. Nepřináší tedy mnoho výhod oproti dvoum modelům.
 
 
 ## Hybridní řešení s Entity Frameworkem
