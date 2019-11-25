@@ -1,16 +1,18 @@
 # Ukládání doménového modelu
 
-[Doménový model](https://martinfowler.com/eaaCatalog/domainModel.html) umožnuje lépe vyjádřit byznys logiku aplikace a také lépe zapouzdřit jednotlivé byznys operace. Díky tomu je pro mnoho aplikací vhodnější než obyčejný databázový model. Bohužel ale trpí jednou velkou nevýhodou která se obecně nazývá [Object-relational impedance mismatch](https://en.wikipedia.org/wiki/Object-relational_impedance_mismatch). Object-relational impedance mismatch jedonudušše říká že můžeme naši doménu namodelovat naprosto přesně podle byznys požadavků ale nakonec tento model stejně budeme muset uložit do databáze která má uplně jinou strukturu. Mapování mezi těmito modeli nemusí být triviálná záležitost a může nakonec vést ke značnému zesložitění celé aplikace. Tento článek popisuje výhody a nevýhody několika způsobů které se často používají pro ukládání doménového modelu. Ještě než popíši jednotlivé způsoby ukládání je důležité vysvětlit proč je ukládání tak důležité.
-
-## Vyplatí se doménový model?
-
-V ideálním světě by Object-relational impedance mismatch vůbec neexistoval a doménový model by byl vhodný pro téměř všechny aplikace. Bohužel ale nežijeme v ideálním světě a Object-relational impedance mismatch může způsobit značné zpomalení vývoje. Zpomalení může být tak zásadní že použití doménového modelu nakonec zpomalí celý vývoj aplikace. Pokud se tedy rozhodujeme zda použít doménový model musíme nejdříve zjistit zda je naše byznys logika dostatečně složitá. Prakticky ale neexistuje žádný způsob jak tuto složitost zjistit. Dobrá zpráva ale je že můžeme zjednodušit ukládání doménového modelu a přiblížit se tak ideálnímu světu ve kterém se tento model vyplatí vždy.
-
-> Pokud je ukládání doménového modelu dostatečně jednoduché je možné tento model použít i pro jednodušší aplikace.
+Jedním z hlavních problémů [DDD](https://en.wikipedia.org/wiki/Domain-driven_design) je ukládání [doménového modelu](https://martinfowler.com/eaaCatalog/domainModel.html). Doménový model ve většině případů neopovídá relačnímu modelu databáze a proto je potřeba provést jejich mapování. Problém mezi mapováním objektového modelu a relační databází se obecně nazývá [Object-relational impedance mismatch](https://en.wikipedia.org/wiki/Object-relational_impedance_mismatch). Object-relational impedance mismatch není triviální problém a existuje velké množství řešení které mají své výhody a nevýhody. V dalších částech se podíváme na 
+výhody a nevýhody různých řešení tohoto problému.
 
 ## Dva modely
 
-Prvním řešením je mapování doménového modelu na dotabázový pomocí kódu napsaného programátorem. Tento přístup v aplikaci vytvoří dva modely. Jeden doménový který odpovídá byznysu aplikace a jeden databázový který přesně odpovídá databázi. Doménový model s použitím dvěma modelů se vyplatí pouze u aplikací s koplikovanou byznys logikou. U jednodušších aplikací přidají dva modely mnoho zbytečného kódu který pouze přesouvá data z jednoho objektu do druhého. Dva modely přístup tedy způsobí problém kdy není možné téměř v žádném z případů rozhnodnout zda se doménový model vyplatí. Více informací o složitosti dvou modelů můžete najít [zde](https://enterprisecraftsmanship.com/posts/having-the-domain-model-separate-from-the-persistence-model/).
+Prvním řešením je ruční mapování obou modelů. Typycky je deménový model ručně namapován na databázový model který přesně odpovídá tabulkám databáze. Databázový model je následně uložen pomocí ORM typycky Entity frameworku. V aplikaci tedy vznikají dva modely mezi kterými je vytvořeno mapování.
+
+Výhody a nevýhody tohoto přístupu můžeme nálézt v [článku od Vladimira Khorikova](https://enterprisecraftsmanship.com/posts/having-the-domain-model-separate-from-the-persistence-model/).
+
+Problémem dvou modelů je velké množství kódu který pouze přesouvá data z jednoho místa na druhé a ve výsledku nepřidává žadnout hodnotu aplikaci. Více informací o těchto problémech je možné nalézt [zde](https://enterprisecraftsmanship.com/posts/having-the-domain-model-separate-from-the-persistence-model/). Vladimír popisuje jak výhody tak i nevýhody tohoto přístupu. Kromě Vladimírem zmíněných výhod můžeme najít ještě další dvě:
+
+1. Programátor potřebuje jen minimum znalostí - pro mapování komplexních doménových modelů jsou často potřeba velké znalosti použitého ORM.
+2. Jednoduché migrace - v některých případech je potřeba zrefaktorovat agregáty a přesunou některá data do jiných agregátů. Tyto změny mohou být o něco jednodušší při použití dvou modelů jelikož nemusí být potřeba migrovat data v databázi.
 
 ## Použití NoSQL
 
