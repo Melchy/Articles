@@ -9,16 +9,18 @@ Prvním řešením je ruční mapování obou modelů. Typycky je deménový mod
 
 Výhody a nevýhody tohoto přístupu můžeme nálézt v [článku od Vladimira Khorikova](https://enterprisecraftsmanship.com/posts/having-the-domain-model-separate-from-the-persistence-model/).
 
-Problémem dvou modelů je velké množství kódu který pouze přesouvá data z jednoho místa na druhé a ve výsledku nepřidává žadnout hodnotu aplikaci. Více informací o těchto problémech je možné nalézt [zde](https://enterprisecraftsmanship.com/posts/having-the-domain-model-separate-from-the-persistence-model/). Vladimír popisuje jak výhody tak i nevýhody tohoto přístupu. Kromě Vladimírem zmíněných výhod můžeme najít ještě další dvě:
+Problémem dvou modelů je velké množství kódu který pouze přesouvá data z jednoho místa na druhé a ve výsledku nepřidává žadnout hodnotu aplikaci. Více informací o těchto problémech je možné nalézt [zde](https://enterprisecraftsmanship.com/posts/having-the-domain-model-separate-from-the-persistence-model/). Vladimír popisuje jak výhody tak i nevýhody tohoto přístupu. Kromě Vladimírem zmíněných výhod můžeme najít ještě minimálně další dvě:
 
 1. Programátor potřebuje jen minimum znalostí - pro mapování komplexních doménových modelů jsou často potřeba velké znalosti použitého ORM.
 2. Jednoduché migrace - v některých případech je potřeba zrefaktorovat agregáty a přesunou některá data do jiných agregátů. Tyto změny mohou být o něco jednodušší při použití dvou modelů jelikož nemusí být potřeba migrovat data v databázi.
 
 ## Použití NoSQL
 
-Dalším způsobem jak vyřešit object-relational impedance mismatch je ukládání doménového modelu do Dokumentové databáze. Způsob ukládání dat do NoSQL je velice vhodný pro doménový model jelikož jednotlivé agregáty mohou být serializovány a uloženy do dokumentů. Tímto přístupem zajistíme že není potřeba žádné mapování pouze serializace a deserializace. Problém s dokumentovou databází nastává při zobrazování dat uživateli. Při zobrazování dat je často potřeba získívat data z více agregátů. Dokumentové databáze ale běžně neumožňují čtení dat z více dokumentů (agregátů) zároveň. Dokumentová databáze tedy řeší mapování doménového modelu neřeší ale dotazovaní nad daty.
+Použití NoSQL databáze umožňuje jednodduše serializovat a uložit agregáty do dokumentů. Díky tomu  není potřeba žádné mapování pouze serializace a deserializace objektů. Problém s dokumentovou databází nastává při zobrazování dat uživateli.
 
-MongoDb od verze 3.4 podporuje [lookup](https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/) a [facet](https://docs.mongodb.com/manual/reference/operator/aggregation/facet/). Tyto operace umožňují dotazy nad více dokumenty. Pokud by kombinace dokumentů pomocí lookup byla příliš pomalá můžeme použít [index](https://medium.com/dbkoda/coding-efficient-mongodb-joins-97fe0627751a).
+Agregáty v DDD jsou vytvářeny na základě invariant které se uplatňují při editaci a vytváření agregátů. Tento způsob modelování ale ve většině případů neodpovídá způsobu jakým je potřeba zobrazovat data uživateli. V běžné aplikaci se tedy často stává že je potřeba zobrazit data z více agregátů zároveň. Dokumentové databáze ale běžně neumožňují čtení dat z více dokumentů (agregátů) zároveň. Dokumentová databáze tedy řeší mapování doménového modelu neřeší ale dotazovaní nad daty.
+
+MongoDb naštěstí od verze 3.4 podporuje [lookup](https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/) a [facet](https://docs.mongodb.com/manual/reference/operator/aggregation/facet/). Tyto operace umožňují dotazy nad více dokumenty. MongoDB tedy řeší jak ukládání tak dotazování nad daty.
 
 ## Použití ORM pro mapování modelů
 
