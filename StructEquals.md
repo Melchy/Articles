@@ -246,4 +246,4 @@ public bool Equals(object obj){
 
 ## Shrnutí
 
-Defaultní implmenetace ValueType.Equals v .NET Frameworku by měla být vždy přepsána jelikož obsahuje bug který může způsobit neočekávané chování aplikace. .NET Core tento bug opravuje a díky tomu je vhodné tuto implementaci používat ve většině případů. Problém může nastat u výpočetně intenzivních aplikací pro které může použití reflexe znamenat značné zpomalení. Toto zpomalení ale nemusí být ve skutečnosti problém díky optimalizaci pomocí bitové kontroly kterou .NET core provádí. Ve výpočetně intezivních aplikacích na .NET Core je tedy často vhodné nejdříve použít defaultní implementaci a až později optimalizovat místa ve kterých ;`Equals` algoritmus vynutil porovnání pomocí reflexe.
+`ValueType.Equals` prochází všechny fieldy a volá na nich `Equals`. Pokud jsou všechny ekvivalentní tak je výsledek `true`. V některých případech .NET používá optimalizaci která bitově porovná obě struktury. .NET Framework obsahuje bug který způsobuje chybné chování Equals pro `float` a `double`. Net Core tento bug opravuje.
