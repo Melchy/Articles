@@ -12,7 +12,7 @@ Výhody a nevýhody tohoto přístupu můžeme nálézt v [článku od Vladimira
 Problémem dvou modelů je velké množství kódu který pouze přesouvá data z jednoho místa na druhé a ve výsledku nepřidává žadnout hodnotu aplikaci. Více informací o těchto problémech je možné nalézt [zde](https://enterprisecraftsmanship.com/posts/having-the-domain-model-separate-from-the-persistence-model/). Vladimír popisuje jak výhody tak i nevýhody tohoto přístupu. Kromě Vladimírem zmíněných výhod můžeme najít ještě minimálně další dvě:
 
 1. Programátor potřebuje jen minimum znalostí - pro mapování komplexních doménových modelů jsou často potřeba velké znalosti použitého ORM.
-2. Jednoduché migrace - v některých případech je potřeba zrefaktorovat agregáty a přesunou některá data do jiných agregátů. Tyto změny mohou být o něco jednodušší při použití dvou modelů jelikož nemusí být potřeba migrovat data v databázi.
+2. Jednoduché migrace - v některých případech je potřeba zrefaktorovat agregáty a přesunou některá data do jiných agregátů. Tyto změny mohou být o něco jednodušší při použití dvou modelů jelikož v některých případache může stačit změna mapování namísto změny databáze.
 
 ## Použití NoSQL
 

@@ -1,21 +1,14 @@
 # Jak funguje Struct Equals
 
-V C# rozlišujeme hodnotové a referenční typy. Hodnotové typy jsou definovány pomocí klíčového slova `struct` a referenční
-typy jsou definovány pomocí `class`. Pro tento článek je důležité že hodnotové typy jsou předávány hodnotou a refrenční
-typy jsou předávány referencí. Více informací o těchto způsobech předávání můžete nalézt [zde](https://www.mathwarehouse.com/programming/passing-by-value-vs-by-reference-visual-explanation.php).
-Můžeme také rozlišovat uživatelem definované typy. Jsou to takové typy které nejsou defaultně v .NET ale
-jsou definovány programátorem.
-
 Všechny typy v C# dědí od bázové třídy ``Object``, která definuje metodu Equals sloužící k porovnávání objektů.
 Defaultní implementace této metody se chová stejně jako ``Object.ReferenceEquals(Object a, Object b)``. Porovnává
 tedy, zda reference objektů ukazují na stejné místo v paměti.
 
-Tento způsob ekvivalnce je ale vhodný, pouze pokud porovnáváme objekty předáváné referencí.
-Pokud objekty předáváme pomocí kopírování, nemá význám porovnávat reference, jelikož vždy ukazují na
-nově vytvořenou kopii objektu. Jsou tedy vždy ``false``.
+Porovnání pomocí reference není vhodné pro [hodnotové objekty](https://docs.microsoft.com/cs-cz/dotnet/csharp/language-reference/keywords/struct) jelikož jsou [předávány hodnotou](https://www.mathwarehouse.com/programming/passing-by-value-vs-by-reference-visual-explanation.php). 
+Předání hodnotou vždy vytvoří novou kopii objektu a proto nemá význam používat ``Object.ReferenceEquals`` pro porovnání ekvivalence.
 
 ```csharp
-//struct se v C# předává kopírováním
+//hodnotový objekt
 struct A{}
 
 var a = new A();
@@ -23,15 +16,14 @@ var v = a; //vytvoří kopii, která se uloží na jiné místo v paměti
 Console.WriteLine(Object.ReferenceEquals(a,v)); //False
 ```
 
-<!---
-Tato implementace
-je definována ve třídě [ValueType](https://github.com/dotnet/coreclr/blob/master/src/System.Private.CoreLib/src/System/ValueType.cs).
--->
+Z tohoto důvodu Všechny hodnotové typy v C# dědí od třídy [ValueType](https://github.com/dotnet/coreclr/blob/master/src/System.Private.CoreLib/src/System/ValueType.cs) která přepisuje chování metody ``Object.Equals``. V další části se podíváme jak tento override funguje.
 
-Z tohoto důvodu hodnotové objekty přepisují chování Object.Equals.
-Algoritmus, který porovnává hodnotové typy, funguje tak, že najde všechny fieldy porovnávaného typu a zavolá na nich Equals.
+
+## ``ValueType.Equals(object obj)``
+
+``ValueType.Equals(object obj)`` projde všechny fieldy porovnávaných typů a zavolá na nich Equals.
 Pokud je výsledek všech těchto porovnání ``True``, tak jsou oba hodnotové objekty ekvivalentní.
-Toto porovnávání je ale poměrně pomalé a proto se v některých případech použije bitová kontrola.
+Toto porovnávání je ale poměrně pomalé a proto se v některých případech použije optimalizace pomocí bitové kontrola. V případě použití této optimalizace se jednoduše vezme bitová reprezentace obou struktur a porovná se.
 Celý algoritmus metody ``ValueType.Equals(object obj)`` popisuje následující zjednodušený kód:
 
 ```csharp
@@ -61,7 +53,7 @@ public bool Equals(object obj){
 }
 ```
 
-Několik následujících příkladů ukazuje popsané chování. První příklad ukazuje nejjednodušší případ kdy struktura obsahuje
+Optimalizace pomocí bitové kontroly se tedy zavolá pokud struktura neobsahuje referenční typ nebo strukturu přepisující Equals. Několik následujících příkladů ukazuje popsané chování. První příklad ukazuje nejjednodušší situaci kdy struktura obsahuje
 pouze hodnotový typ.
 
 ```csharp
@@ -98,8 +90,7 @@ public static void Main()
 }
 ```
 
-Je důležité poznamenat že referenční typ nemusí být
-obsažený přímo v porovnávané struktuře. Může také být zanořený hlouběji v hodnotovém objektu.
+Je důležité poznamenat že referenční typ nemusí být obsažený přímo v porovnávané struktuře. Může také být zanořený hlouběji v hodnotovém objektu.
 
 Další příklad ukazuje uživatelem definovanou strukturu přepisující `Equals`.
 
@@ -131,11 +122,7 @@ public static void Main()
 
 V tomto případě by také mohl hodnotový objekt přepisující `Equals` být zanořena hlouběji ve struktuře.
 
-Z toho algoritmu plyne že mohou nastat dva případy kdy není možné provést bitovou kontrolu.
-
-První případ nastane pokud hodnotový typ obsahuje referenční typ. `Equals` referenčních typů říká že dva typy jsou stejné pokud ukazují na stejné místo v paměti. Porovnání pomocí bitové
-kontroly tedy není možné jelikož neodpovídá definici `Equals` referenčních typů. Následující příklad ukazuje neintuitivní chování které by mohlo nastat při provedení
-bitové kontroly pokud struktura obsahuje referenční typ.
+Bitová kontrola nemůže být provedena pro žádný typ přepisující Equals. Pokud by se bitová kontrola provedla i v tomto případě mohla by nastat zvláštní situace:
 
 ```csharp
 public struct MyThing
@@ -150,17 +137,15 @@ public static void Main()
     s.MyObject = new object();
     f.MyObject.Equals(s.MyObject) //false jelikož objekty ukazují na odlišná místa v paměti
     f.Equals(s);  //pokud by se provedla bitová kontrola výsledek by byl true
-    //Property struktur tedy nejsou ekvivalentní ale struktury samotné jsou.
+    //Fieldy struktur tedy nejsou ekvivalentní ale struktury jsou ekvivalentní.
 }
 ```
 
-Druhý případ kdy není možné použít bitovou kontrolu nastane pokud zanořený hodnotový typ definovaný uživatelem přepisuje `Equals`. Pokud by .NET v tomto případě použil porovnání bitů, ignoroval by uživatelem definovaný `Equals` algoritmus. Což by mohlo způsobit bug.
+Stejný problém  nastane i pokud struktura obsahuje strukturu přepisující `Equals`.
 
 ## Bug v .NET Frameworku
 
-``Float`` a ``double`` jsou výjmečné datové typy, jelikož obsahují hodnoty 0.0 a -0.0, které jsou ekvivalentní, ale mají rozdílnou bitovou reprezentaci.
-Tato vlastnost může způsobit bug v chování ``ValueType.Equals``. Pokud .NET použije porovnání pomocí bitů a struktura obsahuje ``float``
-nebo ``double``, může se stát, že výsledek porovnání bude chybný.
+``Float`` a ``double`` jsou výjmečné datové typy, jelikož obsahují hodnoty 0.0 a -0.0, které jsou ekvivalentní, ale mají rozdílnou bitovou reprezentaci. Tato vlastnost může způsobit bug v chování ``ValueType.Equals``. Pokud .NET použije porovnání pomocí bitů a struktura obsahuje ``float`` nebo ``double``, může se stát, že výsledek porovnání bude chybný.
 
 ```csharp
 public struct MyThing
@@ -174,12 +159,12 @@ public static void Main()
     f.MyFloat = 0.0f;
     s.MyFloat = -0.0f;
 
+    f.MyFloat.Equals(s.MyFloat) //True 0.0 se rovná -0.0
     Console.WriteLine(f.Equals(s));  // vypíše False, jelikož se provede bitová kontrola
 }
 ```
 
-Další problém nastane při přidání referenčního typu do struktury. Přidání referenčního typu způsobí, že se použije kontrola pomocí `Equals`, což způsobí,
-že výsledek bude správný.
+Přidání referenčního typu do struktury vynutí porovnání pomocí Equals což změní výsledek porovnání:
 
 ```csharp
 public struct MyThing
@@ -193,16 +178,17 @@ public static void Main()
     MyThing f, s;
     f.MyFloat = 0.0f;
     s.MyFloat = -0.0f;
-    f.obj = null;
-    s.obj = null;
+    f.obj = new object();
+    s.obj = f.obj;
     Console.WriteLine(f.Equals(s));  // vypíše True
 }
 ```
 
-Odstranění referenčního typu ze struktury tedy může způsobit chybné chování aplikace. Tento bug je naštěstí přítomný pouze v .NET Frameworku.
-NET Core upravilo chování ``ValueType.Equals`` tak, aby se zkontrolovalo, zda typ neobasuje žádný `float` nebo `double` před použitím bitové kontroly.
+Stejný problém by nastal i při přidání struktury přepisující Equals.
 
-.NET Core ``ValueType.Equals(object obj)`` pak vypadá následovně:
+Chybné chování je opraveno v .NET Core. .NET Core ``ValueType.Equals`` nejdříve zkontroluje zda typ neobasuje žádný `float` nebo `double` před použitím bitové kontroly.
+
+.NET Core ``ValueType.Equals(object obj)`` vypadá následovně:
 
 ```csharp
 public bool Equals(object obj){
