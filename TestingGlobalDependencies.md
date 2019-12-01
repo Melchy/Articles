@@ -1,15 +1,15 @@
 # Testování globálních závislostí v C# od verze 6.0
-Legacy systémy často obsahují mnoho globálních závislotí které není možné testovat. Obvyklým řešením tohoto problému je refaktorování.
-Refaktorování ale může do kódu přidat velké množství bugů. Z tohoto důvodu je lepší nejdříve kód otestovat a až později refaktorovat.
-Tento postup nás zavede do nekonečného kruhu.
+
+Legacy systémy často obsahují mnoho globálních závislotí, které není možné testovat. Obvyklým řešením tohoto problému je refaktorování. Refaktorování ale může do kódu přidat velké množství bugů. Z tohoto důvodu je lepší nejdříve kód otestovat a až později refaktorovat. Tento postup nás zavede do nekonečného kruhu.
 
 > Legacy kód nelze otestovat -> je potřeba refactoring -> před refactoringem je potřeba napsat testy ->
 > legacy kód nelze otestovat -> ...
 
-Řešením tohoto problému je udělat jen minimum úprav abychom dostali kód do testovatelného stavu a následně napsat testy. V tomto článku ukáži způsob který umožní testovat globální proměné použitím naprostého minima změn.
+Řešením tohoto problému je udělat jen minimum úprav, abychom dostali kód do testovatelného stavu a následně napsat testy. V tomto článku ukáži způsob, který umožní testovat globální proměné použitím naprostého minima změn.
 
 ## Odstranění globální proměné
-Odstranění globální proměné si ukážeme na následujícím příkladu. V tomto příkladu má uživatel závislost na globální servise která se stará o odesílání emailů.
+
+Odstranění globální proměné si ukážeme na následujícím příkladu. V tomto příkladu má uživatel závislost na globální servise, která se stará o odesílání emailů.
 
 ```csharp
 //File UserService.cs
@@ -34,8 +34,7 @@ namespace Email{
 }
 ```
 
-Prvním krokem pro odstranění závislosti je přidání `using static`. [Using static](https://docs.microsoft.com/cs-cz/dotnet/csharp/language-reference/keywords/using-static)
-bylo do C# přidáno ve verzi 6.0 a umožňuje použití statických metod bez jmenování typu. Předchozí příklad upravíme následovně:
+Prvním krokem pro odstranění závislosti je přidání `using static`. [Using static](https://docs.microsoft.com/cs-cz/dotnet/csharp/language-reference/keywords/using-static) bylo do C# přidáno ve verzi 6.0 a umožňuje použití statických metod bez jmenování typu. Předchozí příklad upravíme následovně:
 
 ```csharp
 using Email;
@@ -69,8 +68,7 @@ public class UserService{
 }
 ```
 
-Metoda `SendEmail` zakryje globální metodu `EmailSender.SendEmail` což způsobí že každé volání `SendEmail()` použije metodu uvnitř `UserService` namísto `EmailSender.SendEmail`.
-Zakrytí globální závislosti umožní namokovat metodu `SendEmail`.
+Metoda `SendEmail` zakryje globální metodu `EmailSender.SendEmail`, což způsobí, že každé volání `SendEmail()` použije metodu uvnitř `UserService` namísto `EmailSender.SendEmail`. Zakrytí globální závislosti umožní namokovat metodu `SendEmail`.
 
 ```csharp
 [Fact]
@@ -88,8 +86,8 @@ public void mock_global_dependency()
 }
 ```
 
-Po napsání několika testů můžeme provést větší refaktoring bez strachu že se nějaká část systému rozbije. Při refactoringu můžeme odstranit globální závislosti
-a následně odstranit `using static`.
+Po napsání několika testů můžeme provést větší refaktoring bez strachu, že se nějaká část systému rozbije. Při refactoringu můžeme odstranit globální závislosti a následně odstranit `using static`.
 
 ## Závěr
-V legacy systémech je možné zneužít `using static` pro dočasné mokování globálních závislostí bez obavy z rozbití již existujícího kódu. Následně je možné legcy kód zrefaktorovat a poté odstranit `using static`. Tento přístup je možné použít od verze C# 6.
+
+V legacy systémech je možné zneužít `using static` pro dočasné mokování globálních závislostí bez obavy z rozbití již existujícího kódu. Následně je možné legcy kód otestovat, zrefaktorovat a poté odstranit `using static`. Tento přístup je možné použít od verze C# 6.

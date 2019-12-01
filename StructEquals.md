@@ -4,8 +4,7 @@ Všechny typy v C# dědí od bázové třídy ``Object``, která definuje metodu
 Defaultní implementace této metody se chová stejně jako ``Object.ReferenceEquals(Object a, Object b)``. Porovnává
 tedy, zda reference objektů ukazují na stejné místo v paměti.
 
-Porovnání pomocí reference není vhodné pro [hodnotové objekty](https://docs.microsoft.com/cs-cz/dotnet/csharp/language-reference/keywords/struct) jelikož jsou [předávány hodnotou](https://www.mathwarehouse.com/programming/passing-by-value-vs-by-reference-visual-explanation.php). 
-Předání hodnotou vždy vytvoří novou kopii objektu a proto nemá význam používat ``Object.ReferenceEquals`` pro porovnání ekvivalence.
+Porovnání pomocí reference není vhodné pro [hodnotové objekty](https://docs.microsoft.com/cs-cz/dotnet/csharp/language-reference/keywords/struct), jelikož jsou [předávány hodnotou](https://www.mathwarehouse.com/programming/passing-by-value-vs-by-reference-visual-explanation.php). Předání hodnotou vždy vytvoří novou kopii objektu a proto nemá význam používat ``Object.ReferenceEquals`` pro porovnání ekvivalence.
 
 ```csharp
 //hodnotový objekt
@@ -16,14 +15,13 @@ var v = a; //vytvoří kopii, která se uloží na jiné místo v paměti
 Console.WriteLine(Object.ReferenceEquals(a,v)); //False
 ```
 
-Z tohoto důvodu Všechny hodnotové typy v C# dědí od třídy [ValueType](https://github.com/dotnet/coreclr/blob/master/src/System.Private.CoreLib/src/System/ValueType.cs) která přepisuje chování metody ``Object.Equals``. V další části se podíváme jak tento override funguje.
-
+Z tohoto důvodu všechny hodnotové typy v C# dědí od třídy [ValueType](https://github.com/dotnet/coreclr/blob/master/src/System.Private.CoreLib/src/System/ValueType.cs), která přepisuje chování metody ``Object.Equals``. V další části se podíváme, jak tento override funguje.
 
 ## ``ValueType.Equals(object obj)``
 
 ``ValueType.Equals(object obj)`` projde všechny fieldy porovnávaných typů a zavolá na nich Equals.
 Pokud je výsledek všech těchto porovnání ``True``, tak jsou oba hodnotové objekty ekvivalentní.
-Toto porovnávání je ale poměrně pomalé a proto se v některých případech použije optimalizace pomocí bitové kontrola. V případě použití této optimalizace se jednoduše vezme bitová reprezentace obou struktur a porovná se.
+Toto porovnávání je ale poměrně pomalé a proto se v některých případech použije optimalizace pomocí bitové kontroly. V případě použití této optimalizace se jednoduše vezme bitová reprezentace obou struktur a porovná se.
 Celý algoritmus metody ``ValueType.Equals(object obj)`` popisuje následující zjednodušený kód:
 
 ```csharp
@@ -53,8 +51,7 @@ public bool Equals(object obj){
 }
 ```
 
-Optimalizace pomocí bitové kontroly se tedy zavolá pokud struktura neobsahuje referenční typ nebo strukturu přepisující Equals. Několik následujících příkladů ukazuje popsané chování. První příklad ukazuje nejjednodušší situaci kdy struktura obsahuje
-pouze hodnotový typ.
+Optimalizace pomocí bitové kontroly se tedy zavolá, pokud struktura neobsahuje referenční typ nebo strukturu přepisující Equals. Několik následujících příkladů ukazuje popsané chování. První příklad ukazuje nejjednodušší situaci, kdy struktura obsahuje pouze hodnotový typ.
 
 ```csharp
 public struct MyThing
@@ -90,7 +87,7 @@ public static void Main()
 }
 ```
 
-Je důležité poznamenat že referenční typ nemusí být obsažený přímo v porovnávané struktuře. Může také být zanořený hlouběji v hodnotovém objektu.
+Je důležité poznamenat, že referenční typ nemusí být obsažený přímo v porovnávané struktuře. Může také být zanořený hlouběji v hodnotovém objektu.
 
 Další příklad ukazuje uživatelem definovanou strukturu přepisující `Equals`.
 
@@ -120,9 +117,9 @@ public static void Main()
 }
 ```
 
-V tomto případě by také mohl hodnotový objekt přepisující `Equals` být zanořena hlouběji ve struktuře.
+V tomto případě by také mohl být hodnotový objekt přepisující `Equals` zanořena hlouběji ve struktuře.
 
-Bitová kontrola nemůže být provedena pro žádný typ přepisující Equals. Pokud by se bitová kontrola provedla i v tomto případě mohla by nastat zvláštní situace:
+Bitová kontrola nemůže být provedena pro žádný typ přepisující Equals. Pokud by se bitová kontrola provedla i v tomto případě, mohla by nastat zvláštní situace:
 
 ```csharp
 public struct MyThing
@@ -135,13 +132,13 @@ public static void Main()
     MyThing f, s;
     f.MyObject = new object();
     s.MyObject = new object();
-    f.MyObject.Equals(s.MyObject) //false jelikož objekty ukazují na odlišná místa v paměti
-    f.Equals(s);  //pokud by se provedla bitová kontrola výsledek by byl true
-    //Fieldy struktur tedy nejsou ekvivalentní ale struktury jsou ekvivalentní.
+    f.MyObject.Equals(s.MyObject) //false, jelikož objekty ukazují na odlišná místa v paměti
+    f.Equals(s);  //pokud by se provedla bitová kontrola, výsledek by byl true
+    //Fieldy struktur tedy nejsou ekvivalentní, ale struktury jsou ekvivalentní.
 }
 ```
 
-Stejný problém  nastane i pokud struktura obsahuje strukturu přepisující `Equals`.
+Stejný problém nastane i pokud struktura obsahuje strukturu přepisující `Equals`.
 
 ## Bug v .NET Frameworku
 
@@ -164,7 +161,7 @@ public static void Main()
 }
 ```
 
-Přidání referenčního typu do struktury vynutí porovnání pomocí Equals což změní výsledek porovnání:
+Přidání referenčního typu do struktury vynutí porovnání pomocí Equals, což změní výsledek porovnání:
 
 ```csharp
 public struct MyThing
@@ -186,7 +183,7 @@ public static void Main()
 
 Stejný problém by nastal i při přidání struktury přepisující Equals.
 
-Chybné chování je opraveno v .NET Core. .NET Core ``ValueType.Equals`` nejdříve zkontroluje zda typ neobasuje žádný `float` nebo `double` před použitím bitové kontroly.
+Chybné chování je opraveno v .NET Core. .NET Core ``ValueType.Equals`` nejdříve zkontroluje, zda typ neobsahuje žádný `float` nebo `double` před použitím bitové kontroly.
 
 .NET Core ``ValueType.Equals(object obj)`` vypadá následovně:
 
@@ -232,4 +229,4 @@ public bool Equals(object obj){
 
 ## Shrnutí
 
-`ValueType.Equals` prochází všechny fieldy a volá na nich `Equals`. Pokud jsou všechny ekvivalentní tak je výsledek `true`. V některých případech .NET používá optimalizaci která bitově porovná obě struktury. .NET Framework obsahuje bug který způsobuje chybné chování Equals pro `float` a `double`. Net Core tento bug opravuje.
+`ValueType.Equals` prochází všechny fieldy a volá na nich `Equals`. Pokud jsou všechny ekvivalentní, tak je výsledek `true`. V některých případech .NET používá optimalizaci, která bitově porovná obě struktury. .NET Framework obsahuje bug, který způsobuje chybné chování Equals pro `float` a `double`. .Net Core tento bug opravuje.
