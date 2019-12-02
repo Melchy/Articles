@@ -1,32 +1,26 @@
 # Ukládání doménového modelu
 
-Jedním z hlavních problémů [DDD](https://en.wikipedia.org/wiki/Domain-driven_design) je ukládání [doménového modelu](https://martinfowler.com/eaaCatalog/domainModel.html). Doménový model ve většině případů neopovídá relačnímu modelu databáze a proto je potřeba provést jejich mapování. Problém mezi mapováním objektového modelu a relační databází se obecně nazývá [Object-relational impedance mismatch](https://en.wikipedia.org/wiki/Object-relational_impedance_mismatch). Object-relational impedance mismatch není triviální problém a existuje velké množství řešení které mají své výhody a nevýhody. V dalších částech se podíváme na 
-výhody a nevýhody různých řešení tohoto problému.
+[Doménový model](https://martinfowler.com/eaaCatalog/domainModel.html) přináší mnoho výhod při práci s doménou aplikace. Bouhužel ale není vhodný pro ukládání dat v databázi jelikož neumožňuje komplikované dotazování nad daty. Z tohoto důvodu se často provádí mapování mezi doménovým a databázovým modelem. Tento článek porovnává několik nejčastějších způsobů používaných pro ukládání doménového modelu.
 
 ## Dva modely
 
-Prvním řešením je ruční mapování obou modelů. Typycky je deménový model ručně namapován na databázový model který přesně odpovídá tabulkám databáze. Databázový model je následně uložen pomocí ORM typycky Entity frameworku. V aplikaci tedy vznikají dva modely mezi kterými je vytvořeno mapování.
+Prvním řešením je ruční mapování obou modelů. Typycky je doménový model ručně namapován na objekty které přesně odpovídá tabulkám databáze. Objekty odpovídající databázovím tabulkám jsou následně uložen pomocí ORM. V aplikaci tedy vznikají dva modely mezi kterými je vytvořeno mapování.
 
-Výhody a nevýhody tohoto přístupu můžeme nálézt v [článku od Vladimira Khorikova](https://enterprisecraftsmanship.com/posts/having-the-domain-model-separate-from-the-persistence-model/).
-
-Problémem dvou modelů je velké množství kódu který pouze přesouvá data z jednoho místa na druhé a ve výsledku nepřidává žadnout hodnotu aplikaci. Více informací o těchto problémech je možné nalézt [zde](https://enterprisecraftsmanship.com/posts/having-the-domain-model-separate-from-the-persistence-model/). Vladimír popisuje jak výhody tak i nevýhody tohoto přístupu. Kromě Vladimírem zmíněných výhod můžeme najít ještě minimálně další dvě:
-
-1. Programátor potřebuje jen minimum znalostí - pro mapování komplexních doménových modelů jsou často potřeba velké znalosti použitého ORM.
-2. Jednoduché migrace - v některých případech je potřeba zrefaktorovat agregáty a přesunou některá data do jiných agregátů. Tyto změny mohou být o něco jednodušší při použití dvou modelů jelikož v některých případache může stačit změna mapování namísto změny databáze.
+Podrobný popis dvou modelů je možné nalézt v [článku od Vladimira Khorikova](https://enterprisecraftsmanship.com/posts/having-the-domain-model-separate-from-the-persistence-model/). Vladimír zmiňuje že hlavní výhodou je čistota doménového modelu za kterou ale programátor zaplatí velkým množstvím kódu potřebného pro mapování. Tento kompromis se pak v praxi téměř nikdy nevyplatí.
 
 ## Použití NoSQL
 
-Použití NoSQL databáze umožňuje jednodduše serializovat a uložit agregáty do dokumentů. Díky tomu  není potřeba žádné mapování pouze serializace a deserializace objektů. Problém s dokumentovou databází nastává při zobrazování dat uživateli.
+Použití NoSQL databáze umožňuje serializovat agregáty a uložit je do dokumentů. Díky tomu  není potřeba žádné mapování pouze serializace a deserializace objektů. Problém s dokumentovou databází nastává při zobrazování dat uživateli.
 
 Agregáty v DDD jsou vytvářeny na základě invariant které se uplatňují při editaci a vytváření agregátů. Tento způsob modelování ale ve většině případů neodpovídá způsobu jakým je potřeba zobrazovat data uživateli. V běžné aplikaci se tedy často stává že je potřeba zobrazit data z více agregátů zároveň. Dokumentové databáze ale běžně neumožňují čtení dat z více dokumentů (agregátů) zároveň. Dokumentová databáze tedy řeší mapování doménového modelu neřeší ale dotazovaní nad daty.
 
-MongoDb naštěstí od verze 3.4 podporuje [lookup](https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/) a [facet](https://docs.mongodb.com/manual/reference/operator/aggregation/facet/). Tyto operace umožňují dotazy nad více dokumenty. MongoDB tedy řeší jak ukládání tak dotazování nad daty.
+MongoDb od verze 3.4 podporuje [lookup](https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/) a [facet](https://docs.mongodb.com/manual/reference/operator/aggregation/facet/). Tyto operace umožňují dotazy nad více dokumenty. MongoDB tedy řeší jak ukládání tak dotazování nad daty.
 
 ## Použití ORM pro mapování modelů
 
 Dalším řešením je nastavit ORM tak aby bylo schopné mapovat databázové tabulky na komplexní doménový model. Tento přístup není v .NET příliš rozšířený jelikož Entity framework nepodporuje komplexní mapování objektů (hlavně ve starších verzích). Jedinou existující altrenativou je ORM Nhybernate které podporuje poměrně komplexní mapování. Bohužel ale Nhybernate není příliš populární a vypadá spíše jako stále méně používaná technologie.
 
-ORM řeší velké množství  mapovnání v některých případech je ale doménový model natolik složitý že ORM není schopné vyřešit mapování. V takových případech se často dělají ústupky které vedou k horšímu doménovému modelu. Dalším problémem je složitý mapovací kód. Mnoha případech je potřeba napsat složitý mapovací kód který nemusí být jednoduché pochopit. Největším problémem ORM se ale zdá být jejich nízká [popularita](https://martinfowler.com/bliki/OrmHate.html).
+ORM řeší velké množství  mapovnání v některých případech je ale doménový model natolik složitý že ORM není schopné vyřešit mapování. V takových případech se často dělají ústupky které vedou k horšímu doménovému modelu. Dalším problémem je složitý mapovací kód. Největším problémem ORM se ale zdá být jejich nízká [popularita](https://martinfowler.com/bliki/OrmHate.html).
 
 ## Event sourcing
 
@@ -36,11 +30,9 @@ Popis event sourcingu můžeme nají v [článku Martina Fowlera](https://martin
 
 2. Tři modely - při použití event sourcingu v kombinaci s doménovým modelem je nutné pracovat se třemi modely. Model událostí, doménový model a model sloužící ke čtení. Události slouží k ukládání dat v systému. Doménový model je projekcí událostí a slouží k vytváření nových událostí. Poslední model je také projekcí událostí a slouží ke zobrazení dat uživateli. Tento model je nutný jelikož ani doménový model ani log událostí nejsou vhodné pro složité dotazy nad daty.
 
-3. Immidiate consistency - zeptat se michala.
+3. Malé množství infrastruktury - event sourcing je poměrně nový způsob ukládání doménových modelů a zatím neexistuje velké množství infrastruktury která by ho podporovala.
 
-4. Malé množství infrastruktury
-
-Celkově je event sourcing zajímavé řešení které ale přináší větší množství problémů než užitku. Nehodí se tedy jako obecné řešení pro ukládání doménových modelů ale může mít užitek v některých aplikacích.
+Celkově je event sourcing zajímavé řešení které ale podle mého názoru přináší větší množství problémů než užitku. Nehodí se tedy jako obecné řešení pro ukládání doménových modelů ale může mít užitek v některých aplikacích.
 
 ## State backed aggregate
 
@@ -49,6 +41,7 @@ Tento způsob vytváří agregáty které znají schéma databáze a slouží po
 ```csharp
     public class User{
         public UserTable UserTable {get;set;}
+        public Address AddressTable {get;set;}
 
         public Cart Cart {get;set;}
 
@@ -82,7 +75,7 @@ Tento způsob vytváří agregáty které znají schéma databáze a slouží po
 
 ```
 
-V případě Entity Frameworku je možné použít [OwnedEntity](https://docs.microsoft.com/cs-cz/ef/core/modeling/owned-entities) pro modelování hodnotových objektů uvnitř stavového objektu. Podrobnější popis tohoto přístupu je možné najít [zde](https://kalele.io/modeling-aggregates-with-ddd-and-entity-framework/)
+V případě Entity Frameworku je možné použít [OwnedEntity](https://docs.microsoft.com/cs-cz/ef/core/modeling/owned-entities) pro modelování hodnotových objektů uvnitř tabulky která obsahuje stav agregátu. Podrobnější popis tohoto přístupu je možné najít [zde](https://kalele.io/modeling-aggregates-with-ddd-and-entity-framework/)
 
 State backed aggregate je velice elegantní řešení jelikož nevyžaduje žádné mapování a zároveň umožňuje poměrně dobré vyjádření byznys logiky. V případech kdy je databáze odlišná od doménového modelu není tento přístup příliš použitelný. Mapovací logika se pak začne dostávat přímo do agregátu což zkomplikuje celou byznys logiku.
 
