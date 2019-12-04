@@ -4,15 +4,15 @@
 
 ## Dva modely
 
-Prvním řešením je ruční mapování obou modelů. Typycky je doménový model ručně namapován na objekty které přesně odpovídá tabulkám databáze. Objekty odpovídající databázovím tabulkám jsou následně uložen pomocí ORM. V aplikaci tedy vznikají dva modely mezi kterými je vytvořeno mapování.
+Programátor vytvoří v aplikaci dva modely - doménový a databázový. Doménový model může být velice složitý a nemusí odpovídat SQL databázi. Databázoví model naopak přesně odpovídá tabulkám SQL databáze. Ukládání probíhá tak že se doménového model namapuje na databázový a ten je poté uložen pomocí Entity Frameworku.
 
 Podrobný popis dvou modelů je možné nalézt v [článku od Vladimira Khorikova](https://enterprisecraftsmanship.com/posts/having-the-domain-model-separate-from-the-persistence-model/). Vladimír zmiňuje že hlavní výhodou je čistota doménového modelu za kterou ale programátor zaplatí velkým množstvím kódu potřebného pro mapování. Tento kompromis se pak v praxi téměř nikdy nevyplatí.
 
 ## Použití NoSQL
 
-Použití NoSQL databáze umožňuje serializovat agregáty a uložit je do dokumentů. Díky tomu  není potřeba žádné mapování pouze serializace a deserializace objektů. Problém s dokumentovou databází nastává při zobrazování dat uživateli.
+NoSQL obsahuje dokumenty do kterých je možné uložit jakýkoliv JSON. Není tedy nutné model mapovat na relační schéma. Stačí pouze serializovat objekty a následně je uložit do dokumentů. NoSQL se tedy zdá být perfektním řešením. Problém ale nastává pří vytváření dotazů na databázi.
 
-Agregáty v DDD jsou vytvářeny na základě invariant které se uplatňují při editaci a vytváření agregátů. Tento způsob modelování ale ve většině případů neodpovídá způsobu jakým je potřeba zobrazovat data uživateli. V běžné aplikaci se tedy často stává že je potřeba zobrazit data z více agregátů zároveň. Dokumentové databáze ale běžně neumožňují čtení dat z více dokumentů (agregátů) zároveň. Dokumentová databáze tedy řeší mapování doménového modelu neřeší ale dotazovaní nad daty.
+Jednou z velkých výhod SQL databází je možnost použití i velice komplexních dotazů. NoSQL je v tomto ohledu často velice omezená. Při použití NoSQL databáze v kombinaci s doménovým modelem se často stává že je potřeba získat data z více dokumentů zároveň. Čtení z více dokumentů ale není často podporované. Jednou z vyjímek je MongoDb.
 
 MongoDb od verze 3.4 podporuje [lookup](https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/) a [facet](https://docs.mongodb.com/manual/reference/operator/aggregation/facet/). Tyto operace umožňují dotazy nad více dokumenty. MongoDB tedy řeší jak ukládání tak dotazování nad daty.
 
@@ -20,7 +20,7 @@ MongoDb od verze 3.4 podporuje [lookup](https://docs.mongodb.com/manual/referenc
 
 Dalším řešením je nastavit ORM tak aby bylo schopné mapovat databázové tabulky na komplexní doménový model. Tento přístup není v .NET příliš rozšířený jelikož Entity framework nepodporuje komplexní mapování objektů (hlavně ve starších verzích). Jedinou existující altrenativou je ORM Nhybernate které podporuje poměrně komplexní mapování. Bohužel ale Nhybernate není příliš populární a vypadá spíše jako stále méně používaná technologie.
 
-ORM řeší velké množství  mapovnání v některých případech je ale doménový model natolik složitý že ORM není schopné vyřešit mapování. V takových případech se často dělají ústupky které vedou k horšímu doménovému modelu. Dalším problémem je složitý mapovací kód. Největším problémem ORM se ale zdá být jejich nízká [popularita](https://martinfowler.com/bliki/OrmHate.html).
+V některých případech je doménový model natolik složitý že ORM není schopné vyřešit mapování. V takových případech se často dělají ústupky které vedou k horšímu doménovému modelu. O tomto problému dále píše již zmiňovaný článek od [Vladimíra](https://enterprisecraftsmanship.com/posts/having-the-domain-model-separate-from-the-persistence-model/). Největším problémem problémem s ORM se ale zdá být jejich nízká [popularita](https://martinfowler.com/bliki/OrmHate.html).
 
 ## Event sourcing
 
@@ -28,7 +28,7 @@ Popis event sourcingu můžeme nají v [článku Martina Fowlera](https://martin
 
 1. Migrace událostí - v některých případech je potřeba aktualizovat události na novější verzi. Řešením může být přidání verze k jednotlivím eventům, vytvoření kopie všech eventů a několik dalších řešení. Všechny řešení které existují mají své výhody a nevýhody. Neexistuje tedy žádný ideální způsob. Podrobnosti o tomto problému můžeme najít v [článku od Michiela Overeema](https://www.researchgate.net/publication/315637858_The_dark_side_of_event_sourcing_Managing_data_conversion). [Fowler](https://martinfowler.com/eaaDev/EventSourcing.html) také zmiňuje jedno z popsaných řešení a ukazuje jeho problémy s extreními systémy.
 
-2. Tři modely - při použití event sourcingu v kombinaci s doménovým modelem je nutné pracovat se třemi modely. Model událostí, doménový model a model sloužící ke čtení. Události slouží k ukládání dat v systému. Doménový model je projekcí událostí a slouží k vytváření nových událostí. Poslední model je také projekcí událostí a slouží ke zobrazení dat uživateli. Tento model je nutný jelikož ani doménový model ani log událostí nejsou vhodné pro složité dotazy nad daty.
+2. Tři modely - při použití event sourcingu v kombinaci s doménovým modelem je nutné pracovat se třemi modely. Model událostí, doménový model a model sloužící ke čtení. Události slouží k ukládání dat v systému. Doménový model je projekcí událostí a slouží k vytváření nových událostí. Poslední model je také projekcí událostí a slouží ke zobrazení dat uživateli. Tento model je nutný jelikož ani doménový model ani log událostí nejsou vhodné pro složité dotazy nad daty. Výsledek je tedy obvykle složitější než použití dvou modelů.
 
 3. Malé množství infrastruktury - event sourcing je poměrně nový způsob ukládání doménových modelů a zatím neexistuje velké množství infrastruktury která by ho podporovala.
 
@@ -36,12 +36,12 @@ Celkově je event sourcing zajímavé řešení které ale podle mého názoru p
 
 ## State backed aggregate
 
-Tento způsob vytváří agregáty které znají schéma databáze a slouží pouze jako jejich obal. Při načítání agregátu se z databáze získají všechny tabulky ve kterých má agregát svá data a uloží se jako properta agregátu. Agregát poté používá tyto tabulky jako úložiště svých dat. Následující příklad demonstruje State backed aggregate:
+Tento způsob vytváří doménové objekty které znají schéma databáze a slouží pouze jako obal databázového modelu. Při načítání objektů se z databáze získají všechny tabulky ve kterých má doménový objekt svá data. Doménový objekt poté používá tyto tabulky jako úložiště svých dat. Následující příklad demonstruje State backed aggregate:
 
 ```csharp
     public class User{
         public UserTable UserTable {get;set;}
-        public Address AddressTable {get;set;}
+        public AddressTable AddressTable {get;set;}
 
         public Cart Cart {get;set;}
 
@@ -75,19 +75,19 @@ Tento způsob vytváří agregáty které znají schéma databáze a slouží po
 
 ```
 
-V případě Entity Frameworku je možné použít [OwnedEntity](https://docs.microsoft.com/cs-cz/ef/core/modeling/owned-entities) pro modelování hodnotových objektů uvnitř tabulky která obsahuje stav agregátu. Podrobnější popis tohoto přístupu je možné najít [zde](https://kalele.io/modeling-aggregates-with-ddd-and-entity-framework/)
+Podrobnější popis tohoto přístupu je možné najít [zde](https://kalele.io/modeling-aggregates-with-ddd-and-entity-framework/)
 
-State backed aggregate je velice elegantní řešení jelikož nevyžaduje žádné mapování a zároveň umožňuje poměrně dobré vyjádření byznys logiky. V případech kdy je databáze odlišná od doménového modelu není tento přístup příliš použitelný. Mapovací logika se pak začne dostávat přímo do agregátu což zkomplikuje celou byznys logiku.
+State backed aggregate je zajímavé řešení jelikož nevyžaduje žádné mapování a zároveň umožňuje poměrně dobré vyjádření byznys logiky. V případech kdy je databáze velice odlišná od doménového modelu ale není tento přístup použitelný. Mapovací logika se pak začne dostávat přímo do agregátu což zkomplikuje celou byznys logiku.
 
-## Ideal aggregate store
+## Ukládání Jsonu do SQL
 
-V článku [The Ideal Aggregate Store?](https://kalele.io/the-ideal-domain-driven-design-aggregate-store/) popisuje Vaughn Vernon ukládání agregátů do SQL ve formátu JSON. PostgreSQL v nových verzích podporuje ukládání a dotazování nad JSON objekty. Vernon jako hlavní výhodu oproti dokumentovým databázím zmiňuje podporu atomických transakcí nad více agregáty. Od napsání článu již ale uběhla nějaká doba a MongoDB již podporuje [transkace](https://docs.mongodb.com/manual/core/transactions/).
+PostgreSQL v nových verzích podporuje ukládání a dotazování nad JSON objekty. Je tedy možné vzít doménové objekty serializovat je a uložit do SQL jako JSON. [Vaughn Vernon napsal o tomto přístupu článek](https://kalele.io/the-ideal-domain-driven-design-aggregate-store/) ve kterém jako hlavní výhodu oproti MongoDB zmiňuje podporu atomických transakcí. Od napsání článu již ale uběhla nějaká doba a MongoDB již podporuje [transkace](https://docs.mongodb.com/manual/core/transactions/).
 
-Aktuálně tedy ukládání agregátů v JSONu do SQL nemá téměř žádné výhody a navíc jsou dotazy limitovány Postgre databází. Postgre například neumožňuje dotazy nad polem zanořeným v poly. Celkově se tedy zdá MongoDb lepší něž použití PostgreSQL.
+Aktuálně tedy ukládání doménového modelu v JSONu do SQL nemá téměř žádné výhody. Naopak můžeme najít jednu velkou nevýhodu. PostgreSQL má pouze limitovanou podporu dotazů nad JSON obekty. Například není možné provádět dotazy nad polem zanořeným v poly.
 
 ## Hybridní řešení s Entity Frameworkem
 
-Jak už jsem zmínil entity framework neumožňuje mapování komplikovaných entit. Entity framework core 2 a 3 se ale v tomto ohledu velice zlepšil a umožnil mapování velkého množství jednodušších agregátů.
+Jak už jsem zmínil Entity Framework neumožňuje mapování komplikovaných entit. Entity framework core 2 a 3 se ale v tomto ohledu velice zlepšil a umožnil mapování velkého množství jednodušších agregátů.
 Se složitějšími případy si EF core nedokáže poradit ale v těchto případech můžeme použít ruční mapování bez ORM. Tímto přístupem nás entity framework zbaví vekého množství zbytečného mapování a zároveň se zbavíme komplikovaného ORM kódu.
 
 Otázkou nyní je - jak často bude nutné použít ruční mapování. [Eric Evans v Effective aggregate design](https://dddcommunity.org/library/vernon_2011/) píše o případu kde 70% agregátů
