@@ -2,179 +2,103 @@ Metafory z realneho sveta
 Evolving language - priklad s kosikem
 Přesné názvy/pojmenování
 
+# Pojmenovávání v programování
 
-Jazyk a programování
-Komunikace je jedním z nejdůležitějších nástrojů programátora. Komunikací programátor získává nové informace
-a zároveň předává již existující znalosti kolegům v týmu. Komunikace je tedy jednou z nejdůležitějších částí programování a jakékoliv
-zlepšení vede k rychlejší implementaci projektu. Důležitou součástí komunikace je správné pojmenování konceptů. Bohuže ale pojmenování 
-v programování není vždy jednoduché. 
+V pravidlech čistého kódu můžeme najít informaci že pojmenování by mělo být raději dlouhé a jednoznačné než krátké a nepřesné. Napříkald namísto Divide(x, y) bychom měli použít Divide(dividend, divisor). Jednoduché a zřejmé. Toto pravidlo ale bohužel není tak jednoduché aplikovat v reálném světě kde neprogramujeme ty nejtriviálnější příklady s dělením.
 
+Reálnějším příkladem může být objekt který vyjadřuje uživatelem s přístupem ke skladu a zároveň k administraci. Pokud použijeme dlouhý a přesný název mohly bychom objekt pojmenovat - UserWithAccessToWarehouseAndAdministration. Pro čtenáře našeho kódu je nyní naprosto zřejmé co tento název vyjadřuje. Bohužel ale není jednoduché o takové proměnné mluvit s jinými programátory.
 
-V pravidlech čistého kódu můžeme najít informaci že pojmenování by mělo být raději dlouhé a jednoznačné než
-krátké a nepřesné. Napříkald namísto Divide(x, y) bychom měli použít Divide(dividend, divisor). Jednoduché a zřejmé.
-Toto pravidlo ale bohužel není tak jednoduché aplikovat v reálném světě kde neprogramujeme ty nejtriviálnější příklady
-s dělením. Co takhle reálnější příklad - řekněme že máme v aplikaci uživatele který má přístup ke skladu a zároveň k
-administraci. Pokud se budeme držet již zmíněného pravidla pak je název pro takového uživatele zřejmý 
-- UserWithAccessToWarehouseAndAdministration. Pro čtenáře našeho kódu je nyní naprosto zřejmé co tento název vyjadřuje.
-Bohužel ale není jednoduché o takové proměnné mluvit s jinými programátory.
+Příklad:
+X: Co se má stát když *uživatel s přístupem ke skladu a k administraci* přistoupí do uživatelské sekce?
 
-Příklad konverzace:
-X: Co se má stát když uživatel s přístupem ke skladu a k administraci přistoupí do uživatelské sekce?
-Y: To by se nemělo stát k uživatelské sekci mají přístup pouze uživatelé klientské sekce a administrátoři
-s přístupem do klientské sekce.
-X: To je zřejmé. Zájímá mě ale zda by měl být uživatel s přístupem ke skladu a k administraci odkázán na přihlašovací 
-stránku pro uživatele s přístupem ke klientské sekci?
-Y: .... (Pokračování rozhovoru bude naznačeno dále)  //--- bude tam že bude chtít vytvořit novou roli která je kombinací těchto 3
-ale přitom nedává smysl  
+Obvykle v takovéto situaci začneme název zkracovat například na uživatele. O kterého uživatele se jedná poté poznáme podle kontextu. Zkracování názvů při rozhovorech ale vede k několika problémům:
 
-Jak můžeme vidět tak ačkoliv jsme našli dlouhý a přesně definovaný název není jednoduché vést diskuzi s takto dlouhým pojmenováním.
-V některých případech se může také stát že název je tak dlouhý že se programátoři jednoduše začnou bavit jen o zkráceném názvu.
-Například v předchozí diskuzi by mohli o "uživatel s přístupem ke skladu a k administraci" začít mluvit pouze jako o uživateli.
-S trochou štěstí oba programátoři pochopí o čem se baví podle kontextu. Někdy ale může dojít k nedorozumění díky záměně pojmů.
-Zároveň je konverzace pro programátory obtížnější jelikož si musí stále uvědomovat o kterém uživateli mluví. Dalším problémem
-je navázání na předchozí konverzaci. Pokud další den přijde X za Y a řeknemu "pamatuješ jak jsme se včera bavili o tom uživateli?".
-Pro Y bude poměrně náročné si uvědomit co tím X myslí.
+1. V některých příkladech může dojít k nedorozumění.
 
-Dlouhé názvy jsou sice přesné ale často nejsou vhodné pro konverzaci.
+2. Konverzace je obtížnější jelikož je potřeba si stále uvědomovat kontext.
 
-Můžeme si představit stejnou situaci tentokrát ale tým rozhodl udělat něco radikálního. Namísto použití proměnné 
-UserWithAccessToWarehouseAndAdministration se rozhodli vytvořit název pro tuto roli. A zároveň pojmenovat další role
-vystupující v jejich systému. Tyto role jsou:
-uživatel s přístupem k administraci -- admin (admin)
-uživatel s přístupem ke klientské sekci -- customer (zákazník)
-uživatel s přístupem ke skladu -- warehouseman (skladník)
-uživatel s přístupem ke skladu a k administraci -- mainWarehouseman (hlavní skladník)
-administrátoři s přístupem do klientské sekce -- mainAdmin (hlavní administrátor)
+3. Navázat na předchozí konverzaci je obtížné. Například otázka "pamatuješ si jak jsme se bavili o tom uživateli?". Bude velice pravděpodobně následována otázkou "O kterém?".
 
-Tyto názvy mohli být vytvořeny ve spolupráci s klientem tak aby odpovídali reálnému světu. Předchozí konverzace je najednou mnohem 
-jednodušší:
-Konverzace:
-X: Co se má stát když hlavní skladník přistoupí do zákaznické sekce?
-Y: To by se nemělo stát k zákaznické sekci mají přístup pouze zákaznici a hlavní administrátoři.
-X: To je zřejmé. Zájímá mě ale zda by měl být hlavní skladník odkázán na přihlašovací stránku pro zákazníky?
-Y: ...
+Dlouhé názvy jsou tedy přesné ale často zhoršují konverzaci mezi programátory. Řešením může být pojmenování dlouhých názvů. Například *uživatel s přístupem ke skladu a k administraci* by mohl být *hlavní skladník* - MainWarehouseman. Toto pojmenování zjednodušší konverzaci a kód pokud všichni v týmu vědí že *hlavní skladní* má právo přistupovat ke skladu a k administraci. Jak by ale měl programátor znalosti o hlavním skladníkovy získat. Další otázkou je proč zrovna název *hlavní skladník* a né nějaký jiný název. Tyto dvě otázky spoulu úzce souvisý a něž je zodpovím tak nachvíli odbočím.
 
-Můžeme vidět že rozhovor je najednou mnohem kratší a jasnější. Duležité ale je i to že pokračování rozhovoru by pravděpodobně ani nevedlo
-k tvorbě další role jelikož k tomu nenavádí pojmenování podle jednotlivých oprávnění.
+V jednom z velkých e-shopů se zavedla zkratka PERA jako název pro skladový systém a několik dalších subsystémů. Po mnoha letech a mnoha změnách v týmu se zjistilo že nikdo vlastně neví jaké slovo či větu má zkratka PERA představovat. Toto zjištění ale překvapivě nikomu nevadilo. PERA byl tak zaběhnutý název že všicni věděli o kterou část systému se jedná a nikdy nebylo potřeba uvádět celý text této zkratky.
 
-Nyní si můžete říkat že je zřejmé že v systému je potřeba pojmenovat jednotlivé role. Avšak pojmenování 
-rolí sebou nese nevýhodu. Programátor který není seznámen s tím jaké opravnění daná role má bude mít problém
-vyznat se v kódu a porozumět rozhovoru.
+PERA byl tedy náhodně vybraný název který ale fungoval velice dobře. Umožnil zjednodušení kódu a diskuzí. Všichni v týmu věděli co PERA vyznačuje a nový členové velice rychle pochopily o co jde.
 
-Jakoukoli věc v programu můžeme pojmenovat náhodným názvem. Což povede ke zjednodušení rozhovoru a kódu pokud jsou všichni
-programátoři seznámeni s tímto pojmenováním.
+Jaké je tedy ponaučení z tohoto příběhu? Měly bychom vždy používat vymyšlené názvy namísto dlouhých a přesných názvů? Pravděpodobně ne. Náhodé názvy fungují poměrně dobře dokud jich v systému není velké množství. Pokud máme takových názvů v systému jen pár může nám to velice zjednodušit kód a komunikaci v týmu. Dále je také vhodné mít tyto názvy někde sepsané spolu s jejich jednoduchým popisem.
 
-Co to znamená? Jednoduše jsem mohl předchozí role pojmenovat X,Y,Z,V,W a rozhovor by byl stejně jasný pro někoho kdo ví 
-že X je uživatel s přístupem ke skladu, Y - uživatel s přístupem k administraci a tak dále.          
+Náhodné názvy bychom také měli použivat pouze jako poslední možnost. Ve většině případů je vhodné využít jeden z následujících způsobů pojmenovávání:
 
-Použít dlouhý název který vede ke kódu který jde pochopit bez předchozích znalostí ale je obtížné o něm hovořit. 
-Použít jednoduchý název o kterém se dá dobře hovořit ale je méně pochopitelný jelikož vyžaduje znalosti programátora.
+1. Názvy založené na obecných znalostech.
 
+2. Názvy existující v doméně.
 
-Nyní se můžeme podívat zpět na příklad s dělením.
-Je tedy metoda Divide(dividend, divisor) lepší než Divide(x, y)?
-Pokud někdo nezná pojmy dividend, divisor potom je pro něj lepší nebo alespoň stejně dobrá varianta s Divide(x, y).
-Naopak pokud pojmy dividend a divisor zná bude jednodušší Divide(dividend, divisor).
+3. Názvy podobající se konceptu který se snaží vyjádřit.
 
-Druhý příklad který jsem uvedl byla název UserWithAccessToWarehouseAndAdministration a mainWarehouseman.
-Můžeme se opět ptát je název UserWithAccessToWarehouseAndAdministration lepší než mainWarehouseman?
-Zde je odpověď komplikovanější proto nyní nebudu odpovídat. To zajímavé ale je že mezi příkladem
-Divide(dividend, divisor)/Divide(x, y) a UserWithAccessToWarehouseAndAdministration/mainWarehouseman je velký rozdíl.
+//TODO nekde tady by bylo dobre vyjadrit dilema -> bud mas presny nazev ktery obsahuje mnoho informaci nebo kratky nazev ktery obsahuje malo informaci.
 
-Všiměte si že pro pochopení Divide(dividend, divisor) potřebuje předchozí znalosti o tom co je dividend a divisor.
-Naopak ve druhém příkladu programátor nepotřebuje žádné předchozí znalosti jelikož všechny potřebné informace jsou 
-již obsaženy v názvu proměnné UserWithAccessToWarehouseAndAdministration.
-Aby tyto příklady byly stejné museli bychom metodu dělení změnit tak aby vypadala takto:
-Divide(numberThatWillBeDivided, numberThatWillDivide) - nyní programátor nepotřebuje žádné znalosti pro pochopení 
-významu parametrů.
+## Názvy založené na obecných znalostech
 
-Proč tedy pojmenovávat dělení Divide(dividend, divisor) namísto Divide(numberThatWillBeDivided, numberThatWillDivide)?
-Jednoduše proto že se očekává že progrmátor má znalosti matematiky a očekává se že bude znát pojmy dividend, divisor.
-Informace o významu proměnných tedy nemusejí být v názvu proměnné jelikož programátor vý jaký význam mají 
-pojmy dividend, divisor. Zároveň jsou tyto názvy dostatečně jednoduché abychom se o něm mohli jednodušše bavit. 
+Na začátku tohoto článku byl uveden příklad s dělením - namísto Divide(x, y) je lepší použít Divide(dividend, divisor). Následně byl uveden stejný příklad z reálného světa *uživatel s přístupem ke skladu a k administraci* by se měl jmenovat *UserWithAccessToWarehouseAndAdministration*. Problémem ale je že tyto dva příklady jsou velice odlišné.
 
-Vyřešili jsme tedy dilema zda použít krátký název vyžadující předchozí znalosti nebo dlouhý název přesně vystihující význam.
-Řešením bylo využít pojem jehož význam programátor již zná a je dostatečně krátký. Toto řešení je ideálná případ a můžeme
-ho použít vždy když programujeme něco o čem mají znalosti všichni programátoři.
+Metoda Divide využívá předchozí znalosti programátora o matematice. Předpokládá že programátor ví co je to dividend a divisor. Naopak příklad s uživatelem nevyžaduje žádné předchozí znalosti programátora. Všechny relevantní inforamce o objektu jsou obsaženy v jejím názvu. Pokud bychom tedy chtěli tyto dva příklady opravdu ekvivalentní museli bychom metodu Divide změnit na Divide(numberThatWillBeDivided, numberThatWillDivide). Nyní metoda Divide také nevyžaduje žádné předchozí znalosti matematiky (kromě definice dělení samotného).
 
-Při pojmenovávání vždy používejte předchozí znalosti programátorů.
+Proč tedy pojmenovávat dělení Divide(dividend, divisor) namísto Divide(numberThatWillBeDivided, numberThatWillDivide)? Obecně očekáváme že programátor má znalosti matematiky a díky tomu informace o významu proměnných nemusejí být v názvu proměnné. Díky tomu získáme krátké názvy a náš tým se nemusí učit nic nového. Získáme tedy to nejlepší z obou světů.
 
-Další příklady tohoto pojmenovávání:
-Na místo dlouhého přesného pojmenování Tree.IncreaseHeightAndWidth() můžeme využít předchozí znalosti programátorů o růstu stromů
-a použít krátký název Tree.Grow()
-Stejně tak na místo dlouhého Person.GetTimeSincBorn() můžeme použít krátké Person.GetAge()
+> Při pojmenovávání vždy používejte předchozí znalosti programátorů.
 
-Tyto pojmenování jsou samozřejmostí snad pro všechny programátory. Je ale důležité si uvědomit že i v těchto případech používáme
-předchozí znalosti. 
+Je důležité si uvědomit že názvy založené na obecných znalostech využíváme poměrně běžně bez přemýšlení. Uvedu ještě dva příklady aby bylo zřejmé toto časté použití:
 
-##Doménové názvy
-Každá aplikace kterou píšeme modeluje nějakou doménu reálného světa. Doménou aplikace může být například půjčování peněž, kovoobrábění,
-prodej zboží. Doména je tedy ta oblast kterou se naše aplikace zabývá. 
+1. Namísto `Person.GetTimeSinceBorn()` můžeme použít `Person.GetAge()`. Využili jsme obecně známý koncept 'věk'.
+2. Namísto `Car.IncreaseSpeed()` můžeme použít `Car.Accelerate()`. Využili jsme základní znalosti fyzyky.
 
-V doméně obvykle existuje mnoho specifických názvů jako jsou věřitel, dlužník, insolvence atd.
-Tyto názvy můžeme pojmenovat jako doménový jazyk. Pokud bychom psali aplikaci která pracuje s 
-půjčováním peněz mohlo bychom se rozhodnout že nepoužijeme doménové názvy jelikož jsou příliš složité a běžný programátor nemusí jejich
-definici znát. 
+## Názvy existující v doméně
 
+Doména aplikace je oblast kterou se aplikace zabývá. Příkladem může být půjčování peněž, kovoobrábění,
+prodej zboží nebo také kompilace kódu. Ve většině domén existuje mnoho specifických pojmů například v doméně půjčování peněž existují pojmy jako věřitel, dlužník, insolvenceích.
 
-Pro jednoduchost dalšího textu použiji název alias pro názvy které jsou krátké a využívají znalosti programátorů.
+### Doménový expert
 
-Další případ kdy je vhodné použít alias je u názvů vyskytujících se v doméně aplikace. Například pokud vytváříme aplikaci
-která modeluje půjčování peněz je vhodné v takové aplikaci použít názvy jako je věřitel, dlužní, insolvence atd. 
+K získání doménových pojmů slouží doménový expert. Doménový expert je osoba která se vyzná v doméně aplikace. Například v doméně účetnictví je doménovým expertem účetní. V některých případech je doménovým expertem člověk který požaduje napsání aplikace ale nemusí to tak být vždy. U velkých firem může být doménových expertů několik. Například může být jeden expert na sklad a jeden na nákupy zboží.
 
+V některých případech také doménový expert vůbec nemusí existovat. Příkladem může být například firma Facebook. V době kdy Facebook začínal neexistoval pojem sociální síť a proto nemohl existovat ani doménový expert na sociální sítě. V případech kdy expert neexistuje je vhodné použít člověka který má znalosti s podobnou doménou. V případě Facebooku by to mohl být člověk který se podílel na vývoji ICQ nebo MySpace.
 
+### Mapování domény
 
+Od doménového experta získáme pojmy používané v doméně aplikace. Tyto pojmy poté můžeme použít pro pojmenování konceptů v kódu. V případě již zmiňované domény půjčování peněž bychom tedy z pojmu dlužník mohly vytvořit objekt `Debtor`. Bez použití doménových výrazů bychom museli použít název `ClientThatOwesMoney`. `ClientThatOwesMoney` by byl delší a zároveň méně přesný název jelikož Dlužník nemusí dlužit pouze peníze.
 
+Problémem doménových názvů může být jejich složitost. Málo kdo ví jak přesně je pode zákona definován dlužník a věřitel. Mnohdy ale není potřeba znát celou definici. Obykle je dostačující pouze obecný popis pojmu s ohledem na potřeby aplikace. Například dlužník je definován následně:
 
+*Dlužník je subjekt práva povinný ze závazkového právního vztahu k plnění vůči věřiteli.*
 
-Dalším případem kdy je vhodné použít názvy namísto přesného pojmenování je použití modelování objektů z domény aplikace. 
+Tato definice je pro běžného člověka poměrně nepochopitelná. Pro zjednodušení této definice je potřeba definovat čím se naše aplikace zabívá. Jako příklad uvedu aplikaci jejíž doménou je půjčování peněz mezi firmami. Nyní už víme že se aplikace zabívá pouze firmami a peňězmi. Můžeme tedy definici zjednodušit následovně:
 
-kdyz o tom mluvim se zakaznikem.
-kdyz to reprezentuje obecnou znalost - dividend, divisor
-kdyz o tom casto mluvime -
-docasne pojmenovani kdyz to piseme - toto pojmenovani vede i k odstraneni byasu.
+*Dlužník je firma která musí splatit peníze věřiteli.*
 
+Definici jsme tedy ořezali na informace které jsou relevantní pro naši aplikaci. Díky tomu jsme dosáhli poměrně jednodušše pochopitelné definice. Všiměte si také že definice obsahuje pouze minimum detailů. Není v ní uvedeno například zda dlužník může víckrát půjčit peníze nebo zda věřitel může mít více dlužníků. Tyto detaily je možné vyčíst z kódu.
 
+V některých případech není definici možné zjednodušit. V takových situacích dává smysl přemýšlet nad logickým rozdělením aplikace na více částí a pro každou uvést jinou definici. Například pokud bycho měli jinou aplikaci která se zabývá dluhy pro firmy i pro běžné občany mohly bychom aplikaci rozdělit na dvě části. První část by se zabívala dluhy pro firmy a druhá dluhy pro běžné občany. Každá z těchto částí by pak měla svou definici dlužníka.
 
-Jak pojmenovávat?
+*Dlužník je firma která musí splatit peníze věřiteli.* - pro část aplikace která se zabývá firmamy.
 
+*Dlužník je osoba která musí splatit peníze věřiteli.* - pro část aplikace která se zabývá osobami.
 
+V moderním světě by tyto části mohli být samostatné microservices. Ve světě monolitu to mohou být samostatné bounded contexty.
 
+Pokud rozdělení aplikace není možné tak není jiná možnost než se spokojit se složitou definicí.
 
-Ideální případ je tedy takový kdy má název přesně existuje v reálném světě. 
+### Dokumentace doménových pojmů
 
+O doménových pojmech je potřeba informovat tým. K tomu se obvykle používá dokument který obsahuje definice všech doménových pojmů tak jak jsem je již popsal. Těchto dokumentů může být i více pro jednu aplikaci. Dokument by měl obsahovat doménový pojem česky, anglicky a popis tohoto pojmu. Příklad:
 
+Pojem česky   Pojem anglicky  Popis
+dlužník   Debter   *Dlužník je firma která musí splatit peníze věřiteli.*
 
+Český název je důležitý jelikož ho můžeme používat při diskuzy se zákazníkem, lidmi z byznysu a mezi programátory. Anglický název je pak použit v kódu.
 
-Předpoklady a očekávání
-Ke každému pojmenování se vážou určité předpoklady a očekávání. Typicky očekáváme že sčítání je komutativní tedy že 3+2=2+3.
-Pokud tedy definujeme metody Add a Subtract měly by odpovídat tomuto očekávání. Pokud metody neodpovídají je vhodné 
-použít jiný název například Advance namísto Add.
+U běžné dokumentace se často stává že přestane být udržována a neodpovídá aktuálnímu kódu. Doménová dokumentace trpí stejnýn problémem avšak doména aplikace se mnění mnohem méně než běžný kód. Z tohoto důvodu je mnohem jednoduší udržet doménovou dokumentaci aktuální.
 
-Názvy sebou nesou jisté předpoklady je důležité s těmito předpoklady počítat.
-
-
-Každé pojmenování sebou nese předpoklady které nám může znepříjemnit další programování. Ukažme si pokračování předchozího rozhovoru. 
-
-Konverzace:
-X: Co se má stát když uživatel s přístupem ke skladu a k administraci přistoupí do uživatelské sekce?
-Y: To by se nemělo stát k uživatelské sekci mají přístup pouze uživatelé klientské sekce a administrátoři
-s přístupem do klientské sekce.
-X: To je zřejmé. Zájímá mě ale zda by měl být uživatel s přístupem ke skladu a k administraci odkázán na přihlašovací 
-stránku pro uživatele s přístupem ke klientské sekci?
-Y: To vypadá jako případ na který jsme nemysleli. Měli bychom přidat uživatele s přístupem ke skladu a k administraci a k 
-uživatelské sekci. Uživatel s přístupem ke skladu a k administraci by pak mohl být přesměrován na stránku která ho informuje
-o tom že musí požádat hlavního administrátora o přístup.
-
-
-V tomto případě díky názvu uživatel s přístupem ke skladu a k administraci došel Y k tomu že musejí pokrýt
-další případ opravnění. Y přemýšlel nad rolemi jednoduše tak že je ideální aby byly pokryté všechny kombinace.
-K této myšlence ho vedlo pojmenování proměnné UserWithAccessToWarehouseAndAdministration.
-
-
-
-
-
+## Názvy podobající se konceptu který se snaží vyjádřit
 
 
 
