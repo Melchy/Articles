@@ -1,0 +1,2 @@
+Jak testovat software
+
