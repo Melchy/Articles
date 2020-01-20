@@ -6,11 +6,9 @@ V následujícím textu je slovem test myšlen unit test. V případě že popis
 
 ## Testovatelný kód je lepší kód
 
-V posledních letech se testovatelná kód stal synonymem s dobrým kódem. Argument "testovatelný kód je lepší kód" můžeme zaslechnou i na místech kde nikdo nepíše testy. U testovatelného kódu není důležité zda píšete testy. U testovatelného kódu se prostě předpokládá že je lepší než kód který nejde testovat.
+V posledních letech se testovatelná kód stal synonymem s dobrým kódem. Skutečnost je ale trochu jiná. Můžeme najít příklady testovatelného kódu který je špatný - [lasagna architecture](https://twitter.com/CodeWisdom/status/967451306460884997?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E967451306460884997&ref_url=https%3A%2F%2Fmatthiasnoback.nl%2F2018%2F02%2Flasagna-code-too-many-layers%2F). Zároveň můžeme najít patterny které jsou velice užitečné ale často nejsou testovatelné - [Active record](https://en.wikipedia.org/wiki/Active_record_pattern).
 
-Skutečnost je ale trochu jiná. Můžeme najít příklady testovatelného kódu který je špatný - [lasagna architecture](https://twitter.com/CodeWisdom/status/967451306460884997?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E967451306460884997&ref_url=https%3A%2F%2Fmatthiasnoback.nl%2F2018%2F02%2Flasagna-code-too-many-layers%2F). Zároveň můžeme najít patterny které jsou velice užitečné ale často nejsou testovatelné - [Active record](https://en.wikipedia.org/wiki/Active_record_pattern).
-
-V některých případech se tedy může stát že testovatelný kód je horší než netestovatelný. Příště až uslyšíte "testovatelný kód je lepší kód" zkuste se zamyslet zda vůbec dává smysl daný kód testovat a zda nestačí pouze integrační testy.
+V některých případech se tedy může stát že testovatelný kód je horší než netestovatelný. Často je vhodné přemýšlet nad tím zda dává smysl daný kód testovat a zda nestačí pouze integrační testy.
 
 Software který je pokrytý testy není nutně dobrý software. Testovatelnost neříká nic o kvalitě kódu.
 
