@@ -8,9 +8,11 @@ V následujícím textu je slovem test myšlen unit test. V případě že popis
 
 V posledních letech se testovatelná kód stal synonymem s dobrým kódem. Skutečnost je ale trochu jiná. Můžeme najít příklady testovatelného kódu který je špatný - [lasagna architecture](https://twitter.com/CodeWisdom/status/967451306460884997?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E967451306460884997&ref_url=https%3A%2F%2Fmatthiasnoback.nl%2F2018%2F02%2Flasagna-code-too-many-layers%2F). Zároveň můžeme najít patterny které jsou velice užitečné ale často nejsou testovatelné - [Active record](https://en.wikipedia.org/wiki/Active_record_pattern).
 
-V některých případech se tedy může stát že testovatelný kód je horší než netestovatelný. Často je vhodné přemýšlet nad tím zda dává smysl daný kód testovat a zda nestačí pouze integrační testy.
+Diskuze na [stackoverflow](https://softwareengineering.stackexchange.com/questions/288405/is-testable-code-better-code) ukazuje že testovatelný kód nemusí být vždy čitelnější. Čitelnost se tedy nemusí zvyšovat s testovatelností.
 
-Software který je pokrytý testy není nutně dobrý software. Testovatelnost neříká nic o kvalitě kódu.
+Další často zmiňovanou výhodou testovalného kódu je modulárnost. Modulárnost často poukazuje na dobrý kód avšak někdy můžeme dosáhnout až příliš vysoké modularity. Například factory pattern je lépe testovatelný a více modulární než inicializace pomocí konstruktoru. Mohlo by se tedy zdát že bychom měli vždy používat factory pattern. Ve skutečnosti ale factory pattern snižuje zapouzdření jelikož všechny property objektu musejí být public. Factory pattern nás tedy dovedl k modulárnějšímu kódu který ale není nutně lepší.
+
+V některých případech se tedy může stát že testovatelný kód je horší než netestovatelný. Další zajímavou diskuzi na toto téma je možné najít [zde](https://martinfowler.com/articles/is-tdd-dead/).
 
 ## Vždy je lepší mít testy
 
@@ -20,7 +22,7 @@ Problémem ale není jen čas strávený úpravamy testů. Dalším problémem j
 
 Příčinou těchto problému jsou špatně napsané testy. Testy jsou buď nečitelné nebo jsou [fragile](http://xunitpatterns.com/Fragile%20Test.html). Řešení těchto problémů se můžete dočíst [zde](https://www.manning.com/books/unit-testing) a v dalších knihách o testování.
 
-Testy tedy mohou vést k celkovému zhoršení kvality kódu a někdy je lepší nepsat testy vůbec a nebo psát pouze integrační testy.
+Testy tedy mohou vést k celkovému zhoršení kvality kódu.
 
 ## Testy se nevyplatí
 
