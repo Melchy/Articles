@@ -10,7 +10,7 @@ V posledních letech se testovatelná kód stal synonymem s dobrým kódem. Skut
 
 Diskuze na [stackoverflow](https://softwareengineering.stackexchange.com/questions/288405/is-testable-code-better-code) ukazuje že testovatelný kód nemusí být vždy čitelnější. Čitelnost se tedy nemusí zvyšovat s testovatelností.
 
-Další často zmiňovanou výhodou testovalného kódu je modulárnost. Modulárnost často poukazuje na dobrý kód avšak někdy můžeme dosáhnout až příliš vysoké modularity. Například factory pattern je lépe testovatelný a více modulární než inicializace pomocí konstruktoru. Mohlo by se tedy zdát že bychom měli vždy používat factory pattern. Ve skutečnosti ale factory pattern snižuje zapouzdření jelikož všechny property objektu musejí být public. Factory pattern nás tedy dovedl k modulárnějšímu kódu který ale není nutně lepší.
+Další často zmiňovanou výhodou testovalného kódu je modulárnost. Modulárnost často poukazuje na dobrý kód avšak někdy můžeme dosáhnout až příliš vysoké modularity. Například factory pattern je lépe testovatelný a více modulární než inicializace pomocí konstruktoru. Mohlo by se tedy zdát že bychom měli vždy používat factory pattern namísto inicializace konstruktorem. Factory pattern ale snižuje zapouzdření jelikož všechny property objektu musejí být public. Factory pattern nás tedy dovedl k modulárnějšímu kódu který ale není nutně lepší.
 
 V některých případech se tedy může stát že testovatelný kód je horší než netestovatelný. Další zajímavou diskuzi na toto téma je možné najít [zde](https://martinfowler.com/articles/is-tdd-dead/).
 
