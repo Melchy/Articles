@@ -35,11 +35,11 @@ S vrtem muze byt problem - voda nemusi byt v dostatecne dobrem stavu pro piti. D
 
 ## Mozne problemy s odpadem
 
-S odpadem muze byt problem ze to nezvladne nasaknout tolik hoven. Bude tedy mozna nutne udelat nejaky lepsi system coz opet musi byt schvaleno uradem. (Podzemni prameny by take mohly byt problem.)
+Odpad nemusi zvladnout nasaknuti tolika hoven. Bude tedy mozna nutne udelat nejaky lepsi system coz opet musi byt schvaleno uradem. (Podzemni prameny by take mohly byt problem.)
 
 ## Mozne problemy s cestou
 
-- Prijezdova cesta muze byt problem. Ci ta cesta bude? Je to vubec oficialni cesta?
+- Ci ta cesta bude? Je to vubec oficialni cesta?
 - Tady typek pise ze mel problem ze cesta byla jen 2 metry siroka - https://www.modrastrecha.cz/forum/projekty/stavel-tu-nekdo-rodinny-dum-vedeny-jako-rekreacni-objekt/
 - Co kdyz tam bude muset projet treba bagr? Je to dost siroke?
 
@@ -47,8 +47,8 @@ S odpadem muze byt problem ze to nezvladne nasaknout tolik hoven. Bude tedy mozn
 
 Velikosti pozemků bez prijezdove cesty
 
-A) 372 + 14 (stavebni)
-B) 527 + 26 (stavebni)
+1) 372 + 14 (stavebni)
+2) 527 + 26 (stavebni)
 
 Cena za M2 3200000 / 939 = 3407.88072417
 
