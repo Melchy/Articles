@@ -49,18 +49,13 @@ complicated. Soon, your class is as crisp as a microwaved duck."
 
 ## Kdy použít starou definici
 
-Nejlepší je pravděpodobně starou definici úplně zapomenout a tvářit se jako že neexistuje. Stará definice může být reprezentována mnoha způsoby které často neodpovídají originální myšlence SRP. Naopak nová definice poměrně přesně vystihuje co měl Uncle Bob na mysli když se snažil SRP poprvé popsat. [Originální článek](https://www.win.tue.nl/~wstomv/edu/2ip30/references/criteria_for_modularization.pdf) ze kterého vycházel totiž porovnává změny modulů v aplikaci při změně požadavků.
-
-## SRP se nevztahuje na metody
-
-Při psaní tohoto článku jsem narazil na zajímavou informaci: SRP se nevztahuje na metody. I přes to že můžete najít mnoho informací o tom že SRP mluví o metodách [wiki](https://en.wikipedia.org/wiki/Single-responsibility_principle) tak jsem nenašel jediný zdroj kde by sám Uncle Bob použil SRP pro refaktorování metod. Dokonce ani [originální článek](https://www.win.tue.nl/~wstomv/edu/2ip30/references/criteria_for_modularization.pdf) podle kterího Uncle Bob sepsal SRP neříká níc o metodách.
+Nikdy. Nejlepší je pravděpodobně starou definici úplně zapomenout a tvářit se jako že neexistuje. Stará definice může být reprezentována mnoha způsoby které často neodpovídají originální myšlence SRP. Naopak nová definice poměrně přesně vystihuje co měl Uncle Bob na mysli když se snažil SRP poprvé popsat. [Originální článek](https://www.win.tue.nl/~wstomv/edu/2ip30/references/criteria_for_modularization.pdf) ze kterého vycházel totiž porovnává změny modulů v aplikaci při změně požadavků.
 
 ## SRP jako code smell
 
-Kód který porušuje SRP často poznáte tak že pro implementaci nových featur vždy musíte upravovat X míst v aplikaci.
+Kód který porušuje SRP můžete někdy poznát tak že pro implementaci nových featur vždy musíte upravovat X míst v aplikaci.
 
 ## Závěr
 
 * Nepoužívejte definici SRP která zní: "Class or module should have one responsibility" nebo "Class or module should have one, and only one, reason to change". Je nepřesná a může být i nebezpečná.
 * Používejte následující definici: "Gather together things that change for the same reasons and at the same times. Separate things that change for different reasons or at different times.". Je novější a lépe vystihuje originální myšlenku.
-* SRP se nevztahuje na metody.
