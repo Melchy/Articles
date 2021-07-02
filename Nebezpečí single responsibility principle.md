@@ -10,14 +10,9 @@ Předchozí definice vyvolává otázku co je "důvod ke změně"? Na internetu 
 * Můžeme najít mnoho lidí kteří si SRP vyloží tak že jedna třída by měla mít pouze jednu metodu [1](https://stackoverflow.com/q/46541197/5324847), [2](https://stackoverflow.com/questions/58986929/doesnt-having-more-than-1-method-break-the-single-responsibility-principle), [3](https://stackoverflow.com/questions/62844197/single-responsibility-principle-for-many-methods).
 * Někteří lidé si SRP vyloží jako důvod proč obalovat metody wrapper metodami které nic nedělají. [4](https://www.overcoded.net/solid-single-responsibility-principle-srp-284015/)
 * Dále můžeme najít programátory kteří říkají že bysme měli volání ``new`` vždy obalovat do factory tříd jelikož vytváření objektu je zodpovědnost samostatné třídy. [5](https://www.brandonsavage.net/breaking-the-single-responsibility-principle/)
+* [Tato otázka](https://softwareengineering.stackexchange.com/q/150760) na stackoverflow popisuje aplikaci ve které programátoři rozbili mnoho tříd na menší jelikož jejich metody považovali za "důvod ke změně". Výsledek byl podle autora horší kód než ten se kterým začali.
 
-Na internetu můžeme najít tisíce dalších takových příkladů a nemá cenu se zabývat každým zvlášť. Důležité je že SRP je špatně definováno a může znamenat prakticky cokoliv.
-
-## Složitější problém
-
-Možná stále nejste přesvědčeni o špatné definici SRP a říkáte si že ukázky které jsem zde představil jsou velice triviální a nemohou reprezentovat reálné aplikace. S tím se nedá než souhlasit. Můžeme ale najít i složitější příklady.
-
-[Tato otázka](https://softwareengineering.stackexchange.com/q/150760) na stackoverflow popisuje aplikaci ve které programátoři rozbili mnoho tříd na menší jelikož jejich metody považovali za "důvod ke změně". Výsledek byl podle autora horší kód než ten se kterým začali. Podle počtu upvotů můžeme odhadovat, že nejsou jediní kteří na takovou situaci narazili.
+Všechny tyto přiklady jsou pochybným použitím SRP a ve většině příkladů povedou ke zhoršení kódu na místo zlepšení. Na internetu můžeme najít velké množtví těchto pochybných použití SRP a nemá cenu se zabývat každým zvlášť. Důležité je že SRP může znamenat prakticky cokoliv co si programátor vymyslí a v mnoha případech nevede ke zlepšení kódu.
 
 ## Odpovědi na stackoverflow a hlubší problém
 
@@ -28,11 +23,11 @@ Většinu odpovědí na stackoverflow můžeme shrnout do tří kategorií:
 3. Nepochopil jsi SRP.
 
 Všechny tyto odpověďi v sobě mají trochu pravdy ale neřeší hlubší problém kterým je že SRP je špatně definováno a poměrně jednoduše může vést programátora k horšímu kódu.
-Další problém který z diskuzí na stackoverflow vyplývá je že jen málo kdo opravdu ví co SRP znamená a co měl vlastně Uncle Bob (tvůrce SRP) na mysli když tento princip popsal.
+Další problém který z diskuzí na stackoverflow vyplývá je že jen málo kdo opravdu ví co SRP znamená.
 
 ## Co na to Uncle Bob?
 
-Uncle Bob (tvůrce SRP) si tyto problémy [sám uvědomuje](https://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html) a proto v novějších článcích používá lepší definici která mnohem lépe popisuje co vlastně SRP znamená.
+Uncle Bob (tvůrce SRP) si tyto problémy [sám uvědomuje](https://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html) a proto v novějších článcích používá lepší definici která mnohem lépe popisuje co SRP znamená.
 
 ## Lepší definice
 
@@ -40,9 +35,9 @@ Novější definice od Uncle Boba zní takto:
 
 "Gather together things that change for the same reasons and at the same times. Separate things that change for different reasons or at different times."[6](https://twitter.com/unclebobmartin/status/1023560222005227520?s=20).
 
-Příklad: představme si aplikaci která obsahuje třídu X s metodami A,B,C. V průběhu několika měsíců přijde spousta požadavků na změny a vy si všimnete že v 90% případů se mění metody A a B společně. V tu chvíli můžeme říct že třída X porušuje SRP a měli bychom metodu C vyjmout a vložit do jiné třídy.
+Příklad: Představme si aplikaci která obsahuje třídu X s metodami A,B,C. V průběhu několika měsíců přijde spousta požadavků na změny a vy si všimnete že v 90% případů se mění metody A a B společně. V tu chvíli můžeme říct že třída X porušuje SRP a měli bychom metodu C vyjmout a vložit do jiné třídy.
 
-Opačný příklad: v jiné aplikaci máme třídy X a Y která má každá jednu metodu. Opět přijdou požadavky na změnu a my si všimneme že ve většině případů se mění třídy X a Y společně. V tu chvíli bychom měli třídy X a Y spojit do jedné.
+Opačný příklad: V jiné aplikaci máme třídy X a Y která má každá jednu metodu. Opět přijdou požadavky na změnu a my si všimneme že ve většině případů se mění třídy X a Y společně. V tu chvíli bychom měli třídy X a Y spojit do jedné.
 
 Všimněte si že SRP není možné aplikovat bez znalosti budoucích požadavků.[7](https://twitter.com/unclebobmartin/status/1023578923907645440?s=20) Často ale můžeme hádat jak se bude aplikace měnit a třídy rozdělit na základě těchto odhadů. Pokud se v našem hádání spleteme tak třídy jednodušše zrefaktorujeme.
 
