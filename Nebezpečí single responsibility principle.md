@@ -5,19 +5,19 @@ neboli "třída nebo modul by měli mít pouze jeden důvod ke změně". V tomto
 
 ## Nepřesná definice
 
-Předchozí definice vyvolává otázku co je "důvod ke změně"? Můžeme najít mnoho lidí kteří si SRP vyloží tak že jedna třída by měla mít pouze jednu metodu [1](https://stackoverflow.com/q/46541197/5324847), [2](https://stackoverflow.com/questions/58986929/doesnt-having-more-than-1-method-break-the-single-responsibility-principle) a [3](https://stackoverflow.com/questions/62844197/single-responsibility-principle-for-many-methods).
+Předchozí definice vyvolává otázku co je "důvod ke změně"? Na internetu můžeme najít mnoho lidí kteří si vykládají důvod ke změně každý jiným způsobem. Pro ukázku uvedu několik příkladů:
 
-Někteří lidé si SRP vyloží jako důvod proč obalovat metody dalšími metodami které aplikaci nijak nezlepšují. [4](https://www.overcoded.net/solid-single-responsibility-principle-srp-284015/)
+* Můžeme najít mnoho lidí kteří si SRP vyloží tak že jedna třída by měla mít pouze jednu metodu [1](https://stackoverflow.com/q/46541197/5324847), [2](https://stackoverflow.com/questions/58986929/doesnt-having-more-than-1-method-break-the-single-responsibility-principle), [3](https://stackoverflow.com/questions/62844197/single-responsibility-principle-for-many-methods).
+* Někteří lidé si SRP vyloží jako důvod proč obalovat metody wrapper metodami které nic nedělají. [4](https://www.overcoded.net/solid-single-responsibility-principle-srp-284015/)
+* Dále můžeme najít programátory kteří říkají že bysme měli volání ``new`` vždy obalovat do factory tříd jelikož vytváření objektu je zodpovědnost samostatné třídy. [5](https://www.brandonsavage.net/breaking-the-single-responsibility-principle/)
 
-Dále můžeme najít programátory kteří říkají že bysme měli volání ``new`` vždy obalovat do factory tříd jelikož vytváření objektu je zodpovědnost samostatné třídy. [5](https://www.brandonsavage.net/breaking-the-single-responsibility-principle/)
-
-Takových příkladů můžeme na internetu najít tisíce a nemá cenu se zabývat každým zvlášť. Důležité je že SRP je špatně definováno a může znamenat prakticky cokoliv.
+Na internetu můžeme najít tisíce dalších takových příkladů a nemá cenu se zabývat každým zvlášť. Důležité je že SRP je špatně definováno a může znamenat prakticky cokoliv.
 
 ## Složitější problém
 
-Možná stále nejste přesvědčeni o špatné definici SRP a říkáte si že ukázky které jsem zde představil jsou velice triviální a nemohou reprezentovat reálné aplikace. S tím se nedá než souhlasit. Můžeme ale najít i složitější příklady ve kterých se programátoři snažili svůj kód vylepšit pomocí SRP a výsledek je horší než kód bez použití SRP.
+Možná stále nejste přesvědčeni o špatné definici SRP a říkáte si že ukázky které jsem zde představil jsou velice triviální a nemohou reprezentovat reálné aplikace. S tím se nedá než souhlasit. Můžeme ale najít i složitější příklady.
 
-Příklad takové situace popisuje [tato otázka](https://softwareengineering.stackexchange.com/q/150760) na stackoverflow. Autor otázky popisuje aplikaci ve které rozbili mnoho tříd na menší jelikož jejich metody považovali za "důvod ke změně". Výsledek byl podle autora horší kód než ten se kterým začali.
+[Tato otázka](https://softwareengineering.stackexchange.com/q/150760) na stackoverflow popisuje aplikaci ve které programátoři rozbili mnoho tříd na menší jelikož jejich metody považovali za "důvod ke změně". Výsledek byl podle autora horší kód než ten se kterým začali. Podle počtu upvotů můžeme odhadovat, že nejsou jediní kteří na takovou situaci narazili.
 
 ## Odpovědi na stackoverflow a hlubší problém
 
@@ -28,7 +28,7 @@ Většinu odpovědí na stackoverflow můžeme shrnout do tří kategorií:
 3. Nepochopil jsi SRP.
 
 Všechny tyto odpověďi v sobě mají trochu pravdy ale neřeší hlubší problém kterým je že SRP je špatně definováno a poměrně jednoduše může vést programátora k horšímu kódu.
-Další problém který z diskuzí na stackoverflow vyplývá je že jen málo kdo opravdu ví co SRP znamená a co vlastně měl Uncle Bob (tvůrce SRP) na mysli když tento princip popsal.
+Další problém který z diskuzí na stackoverflow vyplývá je že jen málo kdo opravdu ví co SRP znamená a co měl vlastně Uncle Bob (tvůrce SRP) na mysli když tento princip popsal.
 
 ## Co na to Uncle Bob?
 
