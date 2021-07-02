@@ -5,7 +5,7 @@ neboli "třída nebo modul by měli mít pouze jeden důvod ke změně". V tomto
 
 ## Nepřesná definice
 
-Předchozí definice vyvolává otázku co je "důvod ke změně"? Na internetu můžeme najít mnoho lidí kteří si vykládají důvod ke změně každý jiným způsobem. Pro ukázku uvedu několik příkladů:
+Předchozí definice vyvolává otázku co je "důvod ke změně"? Na internetu můžeme najít mnoho lidí kteří si vykládají důvod ke změně různými způsoby. Pro ukázku uvedu několik příkladů:
 
 * Můžeme najít mnoho lidí kteří si SRP vyloží tak že jedna třída by měla mít pouze jednu metodu [1](https://stackoverflow.com/q/46541197/5324847), [2](https://stackoverflow.com/questions/58986929/doesnt-having-more-than-1-method-break-the-single-responsibility-principle), [3](https://stackoverflow.com/questions/62844197/single-responsibility-principle-for-many-methods).
 * Někteří lidé si SRP vyloží jako důvod proč obalovat metody wrapper metodami které nic nedělají. [4](https://www.overcoded.net/solid-single-responsibility-principle-srp-284015/)
