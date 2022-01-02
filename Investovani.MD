@@ -210,12 +210,16 @@ Vysledna cena by mela byt 150kč za vklad a 0 kč za vyber.
 
 ### Proc akcie a dluhopisy a ne neco jineho?
 
-Reit - investice do nemovitostních fondů: Globalni etf uz investuji do nemovistosti (https://www.youtube.com/watch?v=IzK5x3LlsUU)
+Reit - investice do nemovitostních fondů: Globalni etf uz investuji do
+nemovistosti (https://www.youtube.com/watch?v=IzK5x3LlsUU)
 Zlato vypada jako spatna investice: https://www.youtube.com/watch?v=ulgqlQWlPbo
 Aktivni podilove fondy jsem resil na zacatku.
 
 Co dale??
 
+## Kalkulacka sporeni
+
+https://www.vypocet.cz/sporeni
 
 ### Byt vs akcie
 
