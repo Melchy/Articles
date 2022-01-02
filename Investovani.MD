@@ -209,19 +209,19 @@ Vysledna cena by mela byt 150kč za vklad a 0 kč za vyber.
 
 ### Daneni ETF
 
-Pokud etf drzite mene nez 3 roky tak je dan 15% - dan se pocita z prodejni - porizovaci ceny. Je to tedy 15% ze zisku.
-Po 3 letech je to bez dane. Zisk do 100k se nedani.
+* Pokud etf drzite mene nez 3 roky tak je dan 15% - dan se pocita z prodejni - porizovaci ceny. Je to tedy 15% ze zisku.
+* Po 3 letech je to bez dane.
+* Prodej do 100k se nedani.
 
 Zdroj: https://rozbiteprasatko.cz/daneni-investic/
 
 ### Proc akcie a dluhopisy a ne neco jineho?
 
-Reit - investice do nemovitostních fondů: Globalni etf uz investuji do
-nemovistosti (https://www.youtube.com/watch?v=IzK5x3LlsUU)
-Zlato vypada jako spatna investice: https://www.youtube.com/watch?v=ulgqlQWlPbo
-Aktivni podilove fondy jsem resil na zacatku.
-
-Co dale??
+* Reit - investice do nemovitostních fondů: Globalni etf uz investuji do
+  nemovistosti (https://www.youtube.com/watch?v=IzK5x3LlsUU)
+* Zlato vypada jako spatna investice: https://www.youtube.com/watch?v=ulgqlQWlPbo
+  Aktivni podilove fondy jsem resil na zacatku.
+* Co dale??
 
 ## Kalkulacka sporeni
 
