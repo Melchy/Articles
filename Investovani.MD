@@ -171,25 +171,39 @@ videt tak zacinaji cca na 10% v dluhopisech (a jinych) a postupem casu to zvysuj
 
 Dalsi rule of thumb ktere se da najit je "individuals should hold a percentage of stocks equal to 100 minus their age".
 V 60 byste tedy meli mit 40% akcie a zbytek bonds nebo neco jineho. Toto pravidlo je ale hodne konzervativni
-(zdroj: https://www.reddit.com/r/personalfinance/comments/2e0d9r/your_age_in_percent_for_bond_allocation/).
-A podle vasi tolerance risku muzete pouzit napr. "110, 120, 130 minus your age" 
+(zdroj: https://www.reddit.com/r/personalfinance/comments/2e0d9r/your_age_in_percent_for_bond_allocation/). A podle vasi
+tolerance risku muzete pouzit napr. "110, 120, 130 minus your age"
 (zdroj https://www.investopedia.com/articles/investing/062714/100-minus-your-age-outdated.asp)
 
 Vanguard ma take dotaznik ktery vam ma neco doporucit podle vasich odpovedi:
-https://retirementplans.vanguard.com/VGApp/pe/PubQuizActivity?Step=start bral bych to ale spis 
-jako orientacni.
+https://retirementplans.vanguard.com/VGApp/pe/PubQuizActivity?Step=start bral bych to ale spis jako orientacni.
 
 ### Ktere dluhopis koupit
 
-Dluhopisy jsou hard
-TODO
+Dluhopisy jsou hard. Tak ze tyhle informace jsou mozna nepresne.
+
+Existuje vice druhu dluhopisu - firemni a statni. My chceme statni protoze firemni budou padat spolecne s akciema.
+
+Statni dluhopisy by nas meli chranit v pripade ze prijde deflace a nebo ekonomicka krize. Z tohoto duvodu je dobre drzet
+alespon nejake dluhopisy.
+
+Z pohledu vydelecnosti dluhopisi ale vydelavaji tak malo ze je casto lepsi koupit nejaky lokalni sporici produkt. Napr.
+duchodove pojisteni nebo terminovany vklad nebo neco takoveho.
+
+Na zaklade tehle informaci bych asi nedaval vse do dluhopisu ale dal bych cast i do lokalnich investicnich produktu.
+
+Bohuzel nedokazu doporucit ktery vybrat. Nenasel jsem dost zdroju.
+
+Info o bondech:
+
 * https://www.bankeronwheels.com/best-ucits-etfs/
 * https://www.bankeronwheels.com/bond-etfs-vs-cash-in-rising-interest-rates-environment/
 * https://rozbiteprasatko.cz/nejlepsi-etf/ - nejlepsi dluhopisove fondy
+* https://rozbiteprasatko.cz/jak-sestavit-etf-portfolio/
 * https://www.reddit.com/r/personalfinance/wiki/investing/
 * https://www.bankeronwheels.com/european-bond-etfs-international-bond-etfs/
 * https://www.bankeronwheels.com/bond-etfs-vs-cash-in-rising-interest-rates-environment/
-* 
+
 ### Jak nakoupit
 
 Nejlepsi broker je pravdepodobne interactive brokers: https://www.interactivebrokers.com/en/home.php.
