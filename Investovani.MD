@@ -5,18 +5,39 @@
 Nedelat - https://www.youtube.com/watch?v=AecvTErBQY8
 Mozna jeste - https://www.youtube.com/watch?v=JzoTdkfues4
 
-## Podilove fondy vs indexove fondy
 
-Podilovy fond muze byt pasivni a aktivni. Pasivni fond muze byt
-investice do indexoveho fondu. Aktivni fond je ten ktery je aktivne managovan
-clovekem. Aktivne managovane fondy maji obvykle vyssi poplatky protoze musime
+## Aktivni podilove fondy vs Pasivni podilove fondy (Mutual funds active/passive)
+
+Podilovy fond muze byt pasivni a aktivni. Aktivni fond je ten ktery je aktivne managovan
+clovekem. Pasivni fond je fond ktery kopiruje nejaky index a je obvykle ovladan nejakym algoritmem.
+Typickym prikladem je S&P 500 což je fond ktery obsahuje 500 nejdrazsich firem v USA.
+
+Aktivne managovane fondy maji obvykle vyssi poplatky protoze musime
 platit cloveka ktery se stara o investovani.
 
-Indexove fondy sleduji nejaky index a obvykle pocitac ovlada 
-co se ma koupit a co ne podle predem urcenych kriterii.
+Pasivni fondy jsou obvykle levnejsi a ovladane algoritmem.
+
+## Co je to index
+
+Index je nejake hypoteticke portfolio kteremu se pak pasivni fond snazi co nejvice priblizit. Indexy jsou casto vytvareny na zaklade
+nejakych studii ktere popisuji chovani nejakeho trhu.
+
+Muzeme si predstavit index ktery obsahuje akcie vsech akciovych firem nasvete. Fond ktery by kopiroval tento index by tedy musel nakoupit
+vsechny akciove firmy na svete. Takovy fond v praxi pravdepodobne nemuze ani vzniknout protoze by musel nakupovat prilis velke mnozstvi firem.
+Pokud by mohl vzniknout tak by jeho naklady byly pravdepodobne velice vysoke.
+
+Muzeme ale rict ze fond ktery kupuje 60% vsech svetocvych akcii se nasemu indexu priblizuje a do jiste miry ho kopiruje. 
+
+## Naklady
+
+Naklady se udavaji v takzvanem TER (Total Expense Ratio). TER se plati jednou za rok a udava se v procentech. TER se plati z
+cele castky kterou jste investovali do fondu. (zdroj: https://www.trackinsight.com/en/education/what-is-total-expense-ratio-ter)
+
+For instance, if you invest $25,000 in an ETF with an annual TER of 0.10%, you’d pay $25 a year to the issuer to cover their operational and business costs.
+(zdroj: https://www.trackinsight.com/en/education/what-is-total-expense-ratio-ter)
 
 
-### Ktery si vybrat 
+### Investovat do aktivnich podilovych fondu nebo pasivncih?
 
 Aktivne managovane podilove fondy se dlouhodobe nevyplati oproti indexovym
 fondum. Studie ukazuji ze lide jsou jen malokdy schopni porazit index
@@ -45,13 +66,11 @@ Mnoho dalsich urcite najdete.
 ## Etf vs Index fund
 
 Jsou mezi nimi male rozdili pro nase ucely muzeme rict ze je to ta stejna vec.
-V evrope jsou vice popularni ETF. Proto dale budu mluvit o etf
-
 
 ### Ktery index/etf vybrat
 
 Nejcasteji lide vybiraji S&P500 coz je index ktery investuje do 500
-nejdrazsich firem v USA.
+nejvetsich firem v USA.
 
 Problem S&P500 je ze vsazime pouze na americky trh. Pokud je tedy nejaka
 velka firma se sidlem jinde nez v americe tak do ni neinvestujeme.
@@ -64,26 +83,31 @@ https://www.bankeronwheels.com/wp-content/uploads/2020/08/world-market-capitaliz
 Z tohoto duvodu muze byt investice do S&P500 riskatni. Lepsi by bylo
 nakoupit index ktery investuje do firem po celem svete.
 
+Na druhou stranu S&P 500 ma vyssi prumernou vynosnost - 6.643% rocne (vcetne dividend a inflace) (zdroj: https://dqydj.com/sp-500-historical-return-calculator/).
+U globalniho indexu muzeme z historickych dat ocekavat vynosnost - 5% (vcetne dividend a inflace) (https://www.reddit.com/r/UKPersonalFinance/comments/cblj4e/comment/ethxnwl/?utm_source=share&utm_medium=web2x&context=3, https://www.youtube.com/watch?v=WhYHrHiOS_E)
 
-Takove indexu existuje nekolik. Clanek ktery je popisuje:
+
+### Jake globalni indexy vybrat
+
+Takovych indexu existuje nekolik. Clanek ktery je popisuje:
 https://www.bankeronwheels.com/best-international-etfs/
 
 Pro nas z toho ale vychazi dva hlavni:
-Vanguard FTSE Developed World UCITS ETF
+Vanguard FTSE All-World UCITS ETF
 iShares MSCI ACWI UCITS ETF
 (clanek: https://www.bankeronwheels.com/best-ucits-etfs/)
 
 Rozdili mezi temito ETF jsou naprosto minimalni Ishares je levnejsi ale zase hure trackuje
-svuj index tak ze ve vysledku budou tyto ETF stejne drahe.
+svuj index tak ze ve vysledku budou tyto ETF cca stejne drahe.
 
-Just etf odkz: 
+Just etf odkaz: 
 
 IShares https://www.justetf.com/uk/etf-profile.html?query=IE00B6R52259&groupField=index&from=search&isin=IE00B6R52259#overview
 Vanguard :  https://www.justetf.com/uk/etf-profile.html?query=IE00BK5BQT80&groupField=index&from=search&isin=IE00BK5BQT80#overview
 
 
 ### Akumulacni vs distribucni
-Fondu muzou byt akumulacni nebo distribucni. Kdyz nektera z firem
+Fondy muzou byt akumulacni nebo distribucni. Kdyz nektera z firem
 vyplaci dividendy tak bud dostanete penize a nebo se vam za ne automaticky
 nakoupi dalsi ETF.
 
@@ -111,12 +135,10 @@ Tohle jsem ale nechtel riskovat jelikoz globalni etf se take stara o automaticke
 zmen.
 
 
-### Vydelecnost
+### Rizika
 
 Jelikoz tyto globalni ETF investuji do akcii firem tak jsou povazovany za rizikove (investice
 napr. do dluhopisu (bonds) je mene rizikova ale dava nizsi vydelek).
-
-Vydelek globalniho etf je 7% za rok. Zdroj: https://www.bankeronwheels.com/world-etfs/
 
 Pokud drzite alespon 10 let tak mate riziko pod 3% ze budete ve ztrate. Zdroj: https://www.bankeronwheels.com/world-etfs/
 
@@ -124,8 +146,8 @@ Osobne planuju drzet a kazdy mesic nakupovat v pristich  20 - 30 let. V tom prip
 
 ### Snizeni rizika pomoci dluhopisu (bonds)
 
-Dluhopisy jsou mene rizikovy a mene videlecny zpusob investovani nez akcie. Dluhopisi maji take casto
-zapornou korelaci k akciim. Pokud tedy akcie klesaji tak dluhopisi pravdepodobne porostou.
+Dluhopisy jsou mene rizikovy a mene vydelecny zpusob investovani nez akcie. Dluhopisy maji take casto
+zapornou korelaci k akciim. Pokud tedy akcie klesaji tak dluhopisy pravdepodobne porostou.
 
 Obvykle chcete drzet vice dluhopisu pokud chcete snizit riziko investice. Napr. pokud jste 100% 
 v akciich tak muzete ocekvat az 50% pokles z investice 
@@ -134,10 +156,12 @@ prodata tak jste v prd... Abyste tento risk snizili tak muzete nakoupit dluhopis
 
 Dale chcete drzet vice dluhopisu pokud jste starsi. Jelikoz akcie nejsou dobra kratkodoba investice.
 
-Dluhopisi jsou take vyhodne pokud potrebujete necekane vybrat investici drive nez za 15 - 30 let.
+Dluhopisy jsou take vyhodne pokud potrebujete necekane vybrat investici drive nez za 15 - 30 let.
 Muze se stat ze budete akcie vybirat za 5 let protoze se stala neocekavana udalost a zrovna v tu
 chvili budou akcie -50%. Diky dluhopisum ale nebudete mit tak velkou ztratu.
 
+
+### Kolik dluhopisu pridat do portfolia?
 
 Otazka je tedy kolik % z investice dat do dluhopisů a kolik do akcii.
 
@@ -155,9 +179,9 @@ Vanguard ma take dotaznik ktery vam ma neco doporucit podle vasich odpovedi:
 https://retirementplans.vanguard.com/VGApp/pe/PubQuizActivity?Step=start bral bych to ale spis 
 jako orientacni.
 
-### Ktery dluhopis koupit
+### Ktere dluhopis koupit
 
-Dluhopisi jsou hard
+Dluhopisy jsou hard
 TODO
 * https://www.bankeronwheels.com/best-ucits-etfs/
 * https://www.bankeronwheels.com/bond-etfs-vs-cash-in-rising-interest-rates-environment/
@@ -170,9 +194,9 @@ TODO
 
 Nejlepsi broker je pravdepodobne interactive brokers: https://www.interactivebrokers.com/en/home.php.
 
-* Ma nejnizsi ceny za nakup
+* Ma jedny z nejnizsich cen za nakup
 * Je to jeden z nejvetsich brokeru na svete tak ze je tam mala sance ze zkrachuje. 
-* Pojisteni je 2mil pokud se teda neco tezce pokazi tak dostanete max 2 mil. (Pred brexitem to bylo asi 30 mil skoda..)
+* Pojisteni je 2mil pokud se teda neco tezce pokazi tak dostanete 2 mil (coz je porad vice nez u mnoha jinych spolecnosti). (Pred brexitem to bylo asi 30 mil skoda..)
 * V roce 2021 zrsuil minimalni vklad 200k a take poplatky za neaktivitu a tim se stal jednim z nejlevnejsich brokeru.
 
 Jini brokeri ktere jsem zvazoval: degiro, fio, xtb, portu.  Vsechny jsem zavrh bud kvuli
@@ -184,12 +208,13 @@ vysokym poplatkum nebo kvuli moznosti zkrachovani a ztraty penez.
 Clanek zde - https://www.finhacker.cz/nejlevnejsi-a-nejefektivnejsi-vklady-a-vybery-penez-u-interactive-brokers/
 Vysledna cena by mela byt 150kč za vklad a 0 kč za vyber.
 
-### Proc akcie a ne neco jineho?
+### Proc akcie a dluhopisy a ne neco jineho?
 
 Reit - investice do nemovitostních fondů: Globalni etf uz investuji do nemovistosti (https://www.youtube.com/watch?v=IzK5x3LlsUU)
 Zlato vypada jako spatna investice: https://www.youtube.com/watch?v=ulgqlQWlPbo
+Aktivni podilove fondy jsem resil na zacatku.
 
-Zapomnel jsem na neco?
+Co dale??
 
 
 ### Byt vs akcie
