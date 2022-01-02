@@ -199,14 +199,20 @@ Nejlepsi broker je pravdepodobne interactive brokers: https://www.interactivebro
 * Pojisteni je 2mil pokud se teda neco tezce pokazi tak dostanete 2 mil (coz je porad vice nez u mnoha jinych spolecnosti). (Pred brexitem to bylo asi 30 mil skoda..)
 * V roce 2021 zrsuil minimalni vklad 200k a take poplatky za neaktivitu a tim se stal jednim z nejlevnejsich brokeru.
 
-Jini brokeri ktere jsem zvazoval: degiro, fio, xtb, portu.  Vsechny jsem zavrh bud kvuli
-vysokym poplatkum nebo kvuli moznosti zkrachovani a ztraty penez.
-
+Jini brokeri ktere jsem zvazoval: degiro, fio, xtb, portu. Vsechny jsem zavrh bud kvuli vysokym poplatkum nebo kvuli
+moznosti zkrachovani a ztraty penez.
 
 ### Nejvyhodnejsi zpusob odeslani penez do interactiv brokers
 
 Clanek zde - https://www.finhacker.cz/nejlevnejsi-a-nejefektivnejsi-vklady-a-vybery-penez-u-interactive-brokers/
 Vysledna cena by mela byt 150kč za vklad a 0 kč za vyber.
+
+### Daneni ETF
+
+Pokud etf drzite mene nez 3 roky tak je dan 15% - dan se pocita z prodejni - porizovaci ceny. Je to tedy 15% ze zisku.
+Po 3 letech je to bez dane. Zisk do 100k se nedani.
+
+Zdroj: https://rozbiteprasatko.cz/daneni-investic/
 
 ### Proc akcie a dluhopisy a ne neco jineho?
 
