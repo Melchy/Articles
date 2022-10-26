@@ -1,11 +1,6 @@
 ## Static factory method in C# 
 
-Při psaní C# často narazíme na situace kdy potřebujeme použít statickou factory metodu. V tomto článku se
-podíváme na nejčastější použití kterými jsou - pojmenování konstruktoru, zapouzdření třídy, 
-zjednodušení generiky, asynchroní konstruktor, vracení hodnot při vytváření třídy a 
-transformace parametrů před voláním base třídy.
-
-Nejdříve se ale podíváme jak vlastně vypadá jednoduchá faktory metoda:
+Static faktory metod pattern je jednoduše statická metoda která vytváří objekt:
 
 ```csharp
     public class User
@@ -20,26 +15,26 @@ Nejdříve se ale podíváme jak vlastně vypadá jednoduchá faktory metoda:
     }
 ```
 
-Jak můžete vidět je to vlastně jednoduchá metoda která vytváří třídu ve které je implementováná.
 Použití je následující:
 
 ```csharp
     User user = User.CreateUser();
 ```
 
-V dalších odstavcích si ukážeme důvody proč použít factory metodu na místo klasického
-konstruktoru.
+Tento pattern má v C# překvapivě velké množství využití.
+Mezi tyto použití patří - pojmenování konstruktoru, zapouzdření třídy,
+zjednodušení generiky, asynchroní vytváření objektů a další. V totmto článku se na tyto využití podíváme .
 
 ## Použití factory metody
 
 ### Pojmenovani konstruktoru
 
-V některých případech se hodí při psaní kódu pospsat čtenáři jaký druh objekt vytváříme.
+V některých případech se hodí při psaní kódu pospsat čtenáři jaký druh objektu vytváříme.
 Představme si že vytváříme uživatele který si zaplatil prémiové předplatné. Vytvoření
 takového uživatele může vypadat následovně:
 
 ```csharp
-var user = new User(name: "John", surname: "doe", age: 20, UserType.Premium)
+var user = new User(name: "John", surname: "doe", age: 20, userType: UserType.Premium)
 ```
 
 Pomocí factory metody můžeme přepsat tento kód následujícím způsobem:
@@ -49,25 +44,35 @@ var user = User.CreatePremiumUser(name: "John", surname: "doe", age: 20);
 
 public class User
 {
-    //...
+    private User(string name, string surname, int age, UserType userType)
+    {
+        // implementation omitted
+    }
     
     public static CreatePremiumUser(string name, string surname, int age)
     {
         return new User(name, surname, age, UserType.Premium)
     }
+    
+    public static CreateStandardUser(string name, string surname, int age)
+    {
+        return new User(name, surname, age, UserType.Standard)
+    }
 }
 ```
 
+Tímto způsobem můžeme čtenáře kódu upozornit na důložitou informaci při vytváření objektu.
+
 ### Zapouzdření
 
-Factory metoda nám může také pomoci abychom umožnili objekt vytvářet pouze
-ve validním stavu. 
+Factory metoda nám může také pomoci objekt vytvářet pouze
+ve validním stavu.
 
-Představme si že vytváříme response objekt který nese stavový
-kód a obsah. Pokud je ale stavový kód `Error` tak objekt nemůže nikdy obsahovat
+Představme si že vytváříme `response` objekt který nese stavový
+kód a obsah. Pokud je stavový kód `Error` tak objekt response nemůže nikdy obsahovat
 obsah.
 
-Popsaný objektu respose může vypadat následucjícím způsobem:
+Respose objekt může vypadat následucjícím způsobem:
 
 ```csharp
 public class Response
@@ -84,10 +89,10 @@ public class Response
 ```
 
 Problémem této implementace ale je že nic nezabrání programátorovi vytvořit
-Response objekt se stavovým kódem `Error` a `Contente` který není null:
+Response objekt se stavovým kódem `Error` a propertou `Content` která není `null`:
 
 ```csharp
-var response = new Response(StatusCode.Error, "This is incorrect");
+var response = new Response(StatusCode.Error, "This should not be allowed.");
 ```
 
 Mohly bychom do konstruktoru přidat následující podmínku:
@@ -110,14 +115,13 @@ public class Response
 }
 ```
 
-Tato implementace zajistí že programátor nemůže vytvořit `Response` objekt v 
+Tato implementace zajistí že programátor nemůže vytvořit `Response` objekt v
 nevalidním stavu. Problémem ale je že programátor který se nepodívá na implementaci
-konstruktoru nemá jak zjistit že objekt nemůže být vytvořen se status code Error a
+konstruktoru nemá jak zjistit že objekt nemůže být vytvořen se `StatusCode = Error` a
 nenullovým contentem. Dozví se to až při spuštění. V lepším případě při testování
 v horším případě až v produkci.
 
-Pomocí statické factory metody můžeme zajistit že programátor nevytvoří
-objekt v nevalidním stavu pomocí kompilátoru:
+Pomocí statické factory metody můžeme vynutit kontrolu kompilátorem:
 
 ```csharp
 public class Response
@@ -144,7 +148,7 @@ public class Response
 }
 ```
 
-Privátní konstruktor zajistí že objekt nemůže být vytvořen přes new a může
+Privátní konstruktor zajistí že objekt nemůže být vytvořen přes `new` a může
 být vytvořen pouze pomocí předem definovaných factory metod které zajistí
 správné předání parametrů.
 
@@ -173,13 +177,11 @@ Tento problém ale můžeme vyřešit statickou factory metodou:
 ```csharp
 public class PremiumUser : User
 {
-    private PremiumUser(int discount)
+    private PremiumUser(int discount) : base(discount)
     {
-        var discount = CalculateDiscount();
-        base(discount); // this is not allowed
     }
 
-    public static int CalculateDiscount()
+    private static int CalculateDiscount()
     {
         // Complex discount calculation
     }
@@ -192,15 +194,15 @@ public class PremiumUser : User
 }
 ```
 
-Volání bázového konstruktoru může být vyřešeno i jinými způsoby ale 
-factory metoda může občast být nejjednodušší nebo nejelegantnější řešení.
+Volání bázového konstruktoru může být vyřešeno i jinými způsoby ale
+factory metoda je často nejjednodušší řešení.
 
-Zjednodušení generiky
+### Zjednodušení generiky
 
 Konstruktory v C# neumějí odvodit generické parametry z typů předaných
 hodnot. Musí být vždy uvedeny což vede ke zbytečnému psaní kódu.
 
-Přikladem může být třída `KeyValuePair` z .net knihovny. Tuto třídu
+Přikladem může být třída `KeyValuePair` z .Net knihovny. Tuto třídu
 můžeme vytvořit pomocí `new`:
 
 ```csharp
@@ -220,8 +222,8 @@ si je kompilátor dokáže sám odvodit.
 ### Asynchroní konstruktor
 
 C# také neumožňuje aby byly konstruktory asynchroní. Pokud ale potřebujete
-vytvořit objekt který v při konstrukci musí volat asynchroní operace 
-tak můžete použít factory metodu.
+vytvořit objekt který v při konstrukci musí volat asynchroní operace
+tak můžete použít statickou factory metodu.
 
 Pamatujte ale že bychom se obecně měli vyhýbat konstruktorům které provádí
 složité operace. [Microsoft guidlines říkají](https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/constructor?redirectedfrom=MSDN):
@@ -230,9 +232,9 @@ složité operace. [Microsoft guidlines říkají](https://docs.microsoft.com/en
 
 ### Vracení hodnot z konstrukce objektu
 
-Posledním použitím je vracení hodnot v konstruktoru. Typickým příkladem
+Posledním použitím je vracení hodnot z konstruktoru. Typickým příkladem
 je situace kde konstruktor dělá validace a potřebuje informovat volajícího že
-nastala chyba a nechce vyhazovat vyjímku.
+nastala chyba bez vyhození vyjímky.
 
 Takovou situaci bychom mohly vyřešit statickou factory metodou která provede
 validace namísto konstruktoru a vrátí výsledek:
@@ -252,6 +254,7 @@ public class User
         {
             return Result.CreateError("User is too young");
         }
+        
         return new Result.CreateOk(new User(age));
     }
 }
@@ -263,5 +266,7 @@ public class User
 Jak už to tak bývá tak žádný pattern nemá pouze výhody. Nevýhody factory
 metody jsou následující:
 
-* Programátor se nemá jak dozvědět že musí objekt vytvářet pomocí factory metody a může pro něj být matoucí že nemůže objekt vytvořit pomocí `new`.
-* Všechny parametry je potřeba přemapovat. Většinu parametrů které předáváme do konstruktoru musíme předat i do factory metody což vytváří zbytečnou duplikaci.
+* Programátor se nemá jak dozvědět že musí objekt vytvářet pomocí factory metody a může pro něj být matoucí že nemůže
+  objekt vytvořit pomocí `new`.
+* Všechny parametry je potřeba přemapovat - Většinu parametrů které předáváme do konstruktoru musíme předat i do factory
+  metody což vytváří zbytečnou duplikaci.
