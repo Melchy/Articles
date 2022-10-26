@@ -1,0 +1,12 @@
+Long term vs short term decisions - building microservices nebo from monolith to microservices
+Dedicnost - kombinace s kompozici
+Obecna pravidala neplati vzdy a casto nejsou ani dobrym argumentem - solid je nebezpecny, psat testy u storky je nekdy nebezpecne atd., neco je singleton a proto je to spatne, ohnuti architektury tak jak vyhovuje nebo pouziti casti.
+
+
+Paterny jsou nepodstatne - ux je cil https://silverhammermba.github.io/blog/2022/07/10/ui
+If you can enforce it with compiler. If you can not enforce it with test
+Project setup
+Make it private - encapsulate all you can
+
+
+Proc kdyz pridavani interfacu je na prd tak neni na prd i to ze musis pouzivat DI pro servisi ktere nemaji stav. 
