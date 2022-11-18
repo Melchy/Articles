@@ -1,0 +1,11 @@
+horsi citelnost
+programatori delaji chyby
+
+var result = GetById();
+if(result.HasAnyErrors()){
+    return "XXX";
+}
+
+//A dale result uz nevyuzije
+
+staticke metody kvuli konstrukci
