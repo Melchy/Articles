@@ -351,24 +351,37 @@ EnablePartitioning = true,
                     queueOptions.RequiresSession = true;
                 }
 
-Ja myslim ze tohle je trošičku zvalstni. 
+Ja myslim ze tohle je trošičku zvalstni.
 Nahore nastavíš property a pak je o par radku niz zase přenastavíš.
-Myslim si ze by bylo citelnejsi nahore nastavit spolecne property a pak mit 
+Myslim si ze by bylo citelnejsi nahore nastavit spolecne property a pak mit
 If else ktery nastavy hodnoty pro Standard a basic.
 
-Priklad proc je tohle hure citelne: nekdo zkouma kod a 
-koukne se pouze na začátek metody a rekne si AHA tak ze 
+Priklad proc je tohle hure citelne: nekdo zkouma kod a
+koukne se pouze na začátek metody a rekne si AHA tak ze
 tohle jsou veci ktere nastavujeme a dal uz necte.
 
+## Code review 8 - shorter code is not always clearer
+
+return (validBarcodeEntered && partner.CarrierLoginKind != 1) || passwordEntered || validShippingListEntered;
+
+se da prepsat na
+
+```csharp
+if (partner.CarrierLoginKind == 1)
+{
+    return validPasswordEntered || validShippingListEntered;
+}
+else
+{
+    return validPasswordEntered || validShippingListEntered || validBarcodeEntered;
+}
+```
 
 ### Problém
 
-
-
 ### Fix
+
 ### Pravidlo
-
-
 
 ## Střípky z code review 11 - Dobře definovaný objekt
 
@@ -392,19 +405,24 @@ https://gitlab.notino.com/web/navigationapi/-/merge_requests/119#note_415321
 
 ### Problém
 ### Fix
+
 ### Pravidlo
-
-
-
 
 ### Střípky z code review 11 - explicitni vyjadreni kodu
 
 Null jako druhe heslo znamena ze druhe heslo je nepovinne.
 
+### Střípky z code review 11 - dlouhe ify
 
+private bool IsSuspectTransition(SlotEvent e)
+{
+return _alarmActivationStates.Contains(e.ToState) && e.FromState == QuidoSlotState.Locked;
+}
+
+return !IsSuspectTransition(e) && !(e.FromState == QuidoSlotState.Locked && e.ToState == QuidoSlotState.Open) && !(
+e.FromState == QuidoSlotState.Open && e.ToState == QuidoSlotState.Locked);
 
 //Hard topics
-
 
 ## Střípky z code review 9 - Radsi vice citelne nez nahrane
 

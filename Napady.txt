@@ -1,4 +1,4 @@
-Long term vs short term decisions - building microservices nebo from monolith to microservices
+todoLong term vs short term decisions - building microservices nebo from monolith to microservices
 Dedicnost - kombinace s kompozici
 Obecna pravidala neplati vzdy a casto nejsou ani dobrym argumentem - solid je nebezpecny, psat testy u storky je nekdy nebezpecne atd., neco je singleton a proto je to spatne, ohnuti architektury tak jak vyhovuje nebo pouziti casti.
 
@@ -10,3 +10,22 @@ Make it private - encapsulate all you can
 
 
 Proc kdyz pridavani interfacu je na prd tak neni na prd i to ze musis pouzivat DI pro servisi ktere nemaji stav. 
+
+
+Dynamic dyspatch a visitor - nahradit switchem s analyzatory
+
+Vypujceni veci z ruznych architektur kdyz jsou potreba
+
+Optimalizuj praci programatoru - klavesove zkratky, ide, tools
+
+
+Benchmarky testu proti db v transakci atd.
+
+OverengeneringHell hell - privatni repo v githubu. Viz description
+
+dva druhy technickeho dluhu - jeden ktery vznika kdyz neco pisu rychle. Druhy co vznika prirozene zmenamy pozadavku atd.
+
+Modular infrastructure
+
+zbytečné odstraňování duplicit - např přidání konstant které nepotřebujeme.
+validace na zacatek metody.

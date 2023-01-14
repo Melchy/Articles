@@ -10,32 +10,39 @@ Následující seznam shrnuje nejčastější argumenty pro použití xUnitu:
 3. xUnit používá konstruktor a Dispose namísto `[SetUp]` and `[TearDown]`
    attributů [4](https://stackoverflow.com/a/33377029/5324847)[5](https://medium.com/@kylia669/xunit-vs-nunit-what-to-choose-to-write-clean-code-part-1-cb1a39ce0e8a)
 
-Většina těchto argumentů je buď nepřesné nebo zastaralá. Pojďme je tedy po jednom rozebrat a uvést je na pravou míru.
+Většina těchto argumentů je buď nepřesné nebo zastaralá. Pojďme je tedy po jednom rozebrat a uvést pravou míru.
 
 ## Vytváření instance pro každý test
 
-Toto je zastaralý argument jelikož NUnit od verze 3.13 dokáže vytvářet novou instanci pro každý test stejně jako xUnit.
-Pro
-spuštění této funkcionality stačí do testovacího projektu přidat
+NUnit od verze 3.13 dokáže vytvářet novou instanci pro každý test stejně jako xUnit.
+Pro spuštění této funkcionality stačí do testovacího projektu přidat
 attribut `[assembly: FixtureLifeCycle(LifeCycle.InstancePerTestCase)]`.
 Dokumentace [zde](https://docs.nunit.org/articles/nunit/writing-tests/attributes/fixturelifecycle.html)
 
 ## Paralelní spouštění testů
 
-Nunit 3 i xUnit umějí spouštět testy paralelně. Druhý bod je tedy nepravdivý/zastaralý.
-Nunit je dokonce flexibilitu ve spouštění paralelních testů než xUnit.
+Nunit 3 i xUnit umějí spouštět testy paralelně.
+Nunit navíc umožňuje podrobnější nastavení paralelizace testů.
 
-V xUnitu se všechny testy v jedné třídě vždy spouštějí seriově a neexistuje žádný způsob
-jak spustit všechny testy paralelně. Pokud chceme spustit testy z několika tříd seriově musíme třídám přidat
-attribut `[CollectionDefinition("collection name")]`.
+### xUnit
+
+V xUnitu se defaultně spouští testy v jedné třídě seriově. Testy ve více třídách se spouští paralelně.
+
+Pokud chceme testy z více tříd spustit sériově tak je musíme přidat do stejné kolekce pomocí attributu
+a `[CollectionDefinition("collection name")]`.
+
+### NUnit
 
 NUnit defaultně spouští všechny testy seriově a umožňuje použít attribut
-`[assembly: Parallelizable(ParallelScope.All)]` který spustí všechny testy v assembly paralelně.
-Dále můžeme i některé třídy označit attributem `[Parallelizable(ParallelScope.Self)]` což způsobý že všechny testy v
-dané třídě budou spuštěny seriově.
+`[assembly: Parallelizable(ParallelScope.Children)]` který spustí všechny testy v assembly paralelně.
+Pokud chceme stejné chování jako v xUnitu tak můžeme použít`[assembly: Parallelizable(ParallelScope.Fixtures)]`.
 
-`Parallelizable` je velice mocný argument a obvykle umožňuje mnohem lepší nastavení než alternativy v xUnitu.
-Více o atributu můžete najít
+Pokud nechceme aby běželi všechny testy v assembly paralelně tak můžeme testovacím třídám přidat attribut
+`[Parallelizable(ParallelScope.Self)]` nebo `NonParallelizable` který
+zajistí že daný test nikdy není spuštěn paralelně.
+
+`Parallelizable` je možné využít mnoha dalšími způsoby a umožní vám nastavit téměř jakoukoliv paralelizaci.
+Více o tomto atributu můžete najít
 v [dokumentaci](https://docs.nunit.org/articles/nunit/writing-tests/attributes/parallelizable.html?q=Parallelizable).
 
 ## Constructor vs SetUp
@@ -47,7 +54,7 @@ Metody označené atributem `[SetUp]` a `[TearDown]` se spustí před každým t
 
 xUnit používá konstruktor a Dispose. Tyto metody se spouštějí pro každý test. Jsou tedy ekvivalentní k  `[SetUp]`
 a `[TearDown]`.
-Abychom docílili jendorázoví setup musíme v xUnitu implementovat interface IClassFixture. Ukázka rozdílu:
+Pokud potřebujeme jendorázový setup v xUnitu tak je nutné implementovat interface `IClassFixture`. Ukázka:
 
 ```csharp
 
@@ -78,8 +85,11 @@ public class DatabaseFixture : IDisposable
 
     public SqlConnection Db { get; private set; }
 }
+```
 
+V Nunitu bysme mohly stejný kód napsat následujícím způsobem:
 
+```csharp
 //------------------- NUNIT ------------------------------
 public class MyDatabaseTests
 {
@@ -95,11 +105,12 @@ public class MyDatabaseTests
         sqlConnection.Dispose();
     }
 }
-
 ```
 
-Osobně si myslím že syntaxe NUnitu je o něco čitelnější. Tento problém se ještě zhoršuje pro xUnit pokud máme setup a
-teardown který je asynchroní.
+Osobně si myslím že syntaxe NUnitu je o něco čitelnější.
+
+Čitelnost se dále zhoršuje v xUnitu pokud pokud máme setup a
+teardown který je asynchroní. Příklad:
 
 ```csharp
 //------------------- XUNIT ------------------------------
@@ -128,7 +139,11 @@ public class DatabaseFixture : IAsyncLifetime // additional interface
 
     public SqlConnection Db { get; private set; }
 }
+```
 
+Stejný kód v Nunitu:
+
+```csharp
 //------------------- NUNIT ------------------------------
 public class MyDatabaseTests : IClassFixture<DatabaseFixture>
 {
@@ -145,7 +160,7 @@ public class MyDatabaseTests : IClassFixture<DatabaseFixture>
 }
 ```
 
-Jak vidíte xUnit potřebuje implementovat interface, naimplmentovat nové metody a přidat AsyncFixture. NUnit naopak
+Jak vidíte xUnit potřebuje implementovat interface, naimplmentovat nové metody a přidat AsyncFixture. NUnit
 vyžaduje pouze změnu metody na async.
 
 ## Podporované testovací atributy
@@ -158,17 +173,19 @@ seznam nemá a nejlepší dostupný seznam je [tento](https://xunit.net/docs/com
 
 Dokumentace xUnitu je mnohem horší než NUnitu.
 Předchozí sekce poukazuje na tento problém a na githubu můžeme najít
-další [issues](https://github.com/xunit/xunit/issues/1762) poukazující na tento problém.
+další [issues](https://github.com/xunit/xunit/issues/1762) poukazující na téměř neexistující dokumentaci.
 
 ## Asserty
 
-Oficiální stránka porovnávající xUnit a NUnit poukazuje na skutečnost že NUnit obsahuje mnohem větší množství assertů.
-Dokumentace xUnitu ale opět neobsahuje žádný úplný výčet tak že nemůžeme s jistotou říct který framework je v tomto
-ohledu lepší.
+[Oficiální stránka](https://xunit.net/docs/comparisons) xUnitu porovnávající xUnit a NUnit
+poukazuje na skutečnost že NUnit obsahuje mnohem větší množství assertů.
+Dokumentace xUnitu ale opět neobsahuje žádný úplný výčet assertovacích metod tak že nemůžeme s
+jistotou říct který framework je v tomto ohledu lepší.
 
-Osobně bych ale doporučoval používat package [FluentAssertions](https://fluentassertions.com/) který předčí NUnit i
+Pro asertování bych ale doporučoval používat package [FluentAssertions](https://fluentassertions.com/) který předčí
+NUnit i
 xUnit.
 
 ## Závěr
 
-Zdá se že najít argument pro použití xUnitu je v dnešní době poměrně obtížné.
+Osobně se mi zdá že je opravdu obtížné najít nějaký aspekt ve kterém je xUnit lepší než NUnit.

@@ -5,9 +5,6 @@ nastavení se kterými není jednoduché udržet krok. V následujících
 odstavcích se proto pokusím představit nastavení které používáme na 
 našich projektech.
 
-Společně s popisem analyzátorů popíšene i další části našeho projektu
-které používáme jako defaultní.
-
 ## Show me the code
 
 TODO odkaz
@@ -15,7 +12,7 @@ TODO odkaz
 ## .editorConfig a Directory.Build.props
 
 Analyzátory budeme přidávat v souboru `Directory.Build.props` a nastavovat v editorConfigu.
-`Directory.Build.props` je soubor který po přidání do rootu solution nsatavuje všechny .csproj
+`Directory.Build.props` je soubor který po přidání do rootu solution nastavuje všechny .csproj
 soubory v solution. Formát tohoto souboru je stejný jako formát csproje a funguje tak že se
 jeho obsah rozkopíruje do všech .csproj souborů v soulution. Je to tedy ideální místo pro
 obecná nastavení - například analyzátory.
