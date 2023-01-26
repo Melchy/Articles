@@ -1,5 +1,7 @@
 # Analyzátory, .editorconfig a další nastavení které používáme
 
+TODO pridat packages.config a ManagePackageVersionsCentrally
+
 V posledních letech přibylo v .netu nespočetné množství analyzátorů a
 nastavení se kterými není jednoduché udržet krok. V následujících
 odstavcích se proto pokusím představit nastavení které používáme na 
@@ -31,8 +33,8 @@ První část našeho `Directory.Build.props` obsahuje obecné nastavení csproj
 
 ```xml
 <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <LangVersion>10</LangVersion>
+    <TargetFramework>net7.0</TargetFramework>
+    <LangVersion>11</LangVersion>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <WarningsNotAsErrors>CS0618</WarningsNotAsErrors>
@@ -190,7 +192,7 @@ Více informací [zde](https://learn.microsoft.com/en-us/aspnet/core/tutorials/g
 
 ```xml
 <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -237,7 +239,7 @@ Popisovat celý editorconfig nemá význam a proto se zaměřím jen na nejdůle
 Celý editorconfig pak můžete najít zde (TODO odkaz).
 
 Editor config je rozdělen do 3 částí - formátování, naming a analyzátory.
-Formátování a naming je poměrně standartní ale velice striktně nastavené.
+Formátování a naming je poměrně standartní ale velice striktně nastavený.
 
 Sekce analyzátorů vypíná (nebo nastavuje na suggestion) některé kontroly které není
 vhodné vynucovat jako error. Pokud se rozhodnete použít naše nastavení
