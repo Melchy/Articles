@@ -2,24 +2,25 @@
 
 V posledních letech přibylo v .NETu nespočetné množství analyzátorů a
 nastavení se kterými není jednoduché udržet krok. V následujících
-odstavcích se proto pokusím představit nastavení které používáme na 
+odstavcích se proto pokusím představit nastavení které používáme na
 našich projektech.
 
 ## Show me the code
 
 TODO odkaz
 
-## .editorConfig, Directory.Build.props a Directory.Packages.props
+## .editorConfig, Directory.Build.props, Directory.Packages.props a další
 
-`Directory.Build.props` je soubor který po přidání do rootu solution nastavuje všechny .csproj
-soubory v dané solution. Formát tohoto souboru je stejný jako formát csproje a zjednodušeně funguje tak že se
-jeho obsah rozkopíruje do všech .csproj souborů v soulution. Je to tedy ideální místo pro
-globáoní nastavení.
+Následující seznam popisuje soubory které defaultně používáme pro nastavení projektu.
 
-`EditorConfig` je používán pro nastavení stylů a analyzátorů.
-
-`Directory.Packages.props` je soubor který slouží k nastavení nuget packagů pro celou solution.
-
+* `Directory.Build.props` po přidání do rootu solution nastavuje všechny .csproj
+  soubory v dané solution. Formát tohoto souboru je stejný jako formát csproje a zjednodušeně funguje tak že se
+  jeho obsah rozkopíruje do všech .csproj souborů v soulution. Je to tedy ideální místo pro
+  globální nastavení.
+* `EditorConfig` je používán pro nastavení stylů a analyzátorů.
+* `Directory.Packages.props` je soubor který slouží k nastavení nuget packagů pro celou solution.
+* `global.json` má několik použití a pro nás slouží primárně k výběru SDK.
+* `nuget.config` je používán pro nastavení zdrojů pro nuget package.
 
 ## Directory.Build.props
 
@@ -28,7 +29,6 @@ globáoní nastavení.
 ```xml
 <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <LangVersion>11</LangVersion>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <!-- CS0618 - 'member' is obsolete -->
@@ -56,21 +56,6 @@ globáoní nastavení.
 
 Určí jaká verze frameworku se má používat. Díky tomu, že je verze určena přímo v `Directory.Build.props` zajistíme
 jednodušší update na novou verzi .netu.
-
-### LangVersion
-
-Tento parameter je nepovinný ale velice užitečný. Pokud máte na svém počítači nainstalovaných více verzí .NETu tak
-compilátor
-automaticky předpokládá že používáte tu nejnovější a nabízí vám nejnovější C# featury (nehledně na to jak nastavíte
-TargetFramework).
-
-Pokud jste ale ještě nezmigrovali váš projekt na nejnovější verzi C# tak se vám může stát že lokálně použijete nové
-funkce
-.netu a vše se bude tvářit funkčně. Když ale pushnete vaše změny tak vám build server může oznámit že
-nové funkce nepodporuje protože nemá nainstalovaný nejnovější .NET. Abychom těmto chybám předešli tak vždy tento flag
-nastavujeme na
-správnou verzi C#.
-
 
 ### \<Nullable>enable\</Nullable>
 
@@ -317,3 +302,40 @@ Na konci našeho editorconfigu jsou nastavení která spustí všechny kategorie
 Tyto pravidla mají formát: `dotnet_analyzer_diagnostic.category-XXXX.severity = error`.
 Pokud se tedy rozhodnete spustit NetAnalyzátory (TODO odkaz) tak je vhodné tuto část vykopírovat do
 vašeho editor configu.
+
+## global.json
+
+`Global.json` používáme pro nastavení SDK které se bude používat. Verzi SDK je důležité definovat abysme zajistili,
+že aplikace bude vždy zbuilděna stejným způsobem i na různých strojích. Pokud nespecifikujete jaké SDK se má vybrat
+tak se automaticky vybere nejnovější nainstalované což může způsobit odlišné chování.
+
+Náš global.json je definován následujícím způsobem:
+
+```json
+{
+    "sdk": 
+    {
+        "version": "7.0.0",
+        "rollForward": "latestFeature"
+    }
+}
+```
+
+`"rollForward": "latestFeature"` zajistí že se použije nejnovšjší feature verze. Feature verze je definována
+za poslední tečkou (7.0.XXX).
+
+## nuget.config
+
+`Nuget.config` specifikuje zdroje ze kterých se mají načítat nuget package.
+Náš defaultní nuget.package je definován následujícím způsobem:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <packageSources>
+        <!-- Do not use any global NuGet package sources -->
+        <clear/>
+        <add key="nuget" value="https://api.nuget.org/v3/index.json"/>
+    </packageSources>
+</configuration>
+```
