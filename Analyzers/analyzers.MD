@@ -16,7 +16,7 @@ soubory v dané solution. Formát tohoto souboru je stejný jako formát csproje
 jeho obsah rozkopíruje do všech .csproj souborů v soulution. Je to tedy ideální místo pro
 globáoní nastavení.
 
-EditorConfig je používán pro nastavení stylů a analyzátorů.
+`EditorConfig` je používán pro nastavení stylů a analyzátorů.
 
 `Directory.Packages.props` je soubor který slouží k nastavení nuget packagů pro celou solution.
 
