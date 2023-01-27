@@ -29,3 +29,7 @@ Modular infrastructure
 
 zbytečné odstraňování duplicit - např přidání konstant které nepotřebujeme.
 validace na zacatek metody.
+
+Single or multiple dtos per endpoint?
+
+Api guidlines

@@ -1,0 +1,27 @@
+<Project>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>11</LangVersion>
+        <Nullable>enable</Nullable>
+        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+        <!-- CS0618 - 'member' is obsolete -->
+        <WarningsNotAsErrors>CS0618</WarningsNotAsErrors>
+        <!-- 
+            CS1591 - Missing XML comment for publicly visible type or member 'Type_or_Member'
+            CA1014 - Mark assemblies with CLSCompliantAttribute
+        -->
+        <NoWarn>CA1014,CS1591</NoWarn>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <AnalysisMode>All</AnalysisMode>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+        <!--    https://www.meziantou.net/csharp-compiler-strict-mode.htm    -->
+        <Features>strict</Features>
+        <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <!--    Anylezrs needs this to analyse documentation comments-->
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="Tests"/>
+    </ItemGroup>
+</Project>
