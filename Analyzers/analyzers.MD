@@ -1,7 +1,5 @@
 # Analyzátory, .editorconfig a další nastavení které používáme
 
-TODO pridat packages.config a ManagePackageVersionsCentrally
-
 V posledních letech přibylo v .netu nespočetné množství analyzátorů a
 nastavení se kterými není jednoduché udržet krok. V následujících
 odstavcích se proto pokusím představit nastavení které používáme na 
