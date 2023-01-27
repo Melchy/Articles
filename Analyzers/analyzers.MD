@@ -77,7 +77,7 @@ správnou verzi C#.
 Spustí kontrolu nullability u referenčních typů. NullReference exceptions jsou jedny z nejhorších vyjímek na které
 můžete
 narazit a tento flag umožní nalezení většiny těchto chyb už při buildu. Více o nullable reference types
-můžete najít [zde](https://thecodeblogger.com/2022/05/26/getting-started-on-nullable-reference-types/)
+můžete najít [zde](https://thecodeblogger.com/2022/05/26/getting-started-on-nullable-reference-types/).
 
 ### \<TreatWarningsAsErrors>True\</TreatWarningsAsErrors>
 
@@ -85,14 +85,14 @@ Zajistí že všechny warningy se zobrazí jako errory. Warningy často obsahuj�
 toho důvodu je vhodné programátory
 donutit aby se jimy zabývali.
 
-V některých případech je nutné warningy (resp. errory) ignorovat. V těchto situacích máme následující možnosti:
+V některých případech je nutné warningy (resp. errory) ignorovat a v těchto situacích máme následující možnosti:
 
 * Potlačení pomocí attributu
 * Potlačení pomocí pragma
 * Potlačení csprojem
 * Potlačení editor configem
 
-Následující kapitoly popisuje všechny tyto způsoby.
+Následující kapitoly popisují všechny tyto způsoby.
 
 #### Potlačení pomocí attributu
 
@@ -157,15 +157,15 @@ nikdy neděláme a proto tento warning vypínáme globálně.
 
 CS1591 nás nutí okomentovat všechny public věci v našem kódu. Obvykle náš kód píšeme tak aby nebylo nutné přidávat
 komentáře a proto
-tento warning také vypínámé. Na některých projektech jako je třeba nuget knihovnu je ale tento warning velice užitečný a
+tento warning také vypínámé. Na některých projektech jako je třeba nuget knihovna je ale tento warning velice užitečný a
 proto **doporučuji zvážit
 zda ho chcete vypnout**.
 
 ### \<EnableNETAnalyzers>true\</EnableNETAnalyzers>
 
-V dřívějších verzích .Net nabízel microsoft nuget package s názvem FxCop který přidával do projektu mnoho užitečných
+V dřívějších verzích .NETu nabízel microsoft nuget package s názvem FxCop který přidával do projektu mnoho užitečných
 analyzátorů.
-Tyto analyzátory byly tak užitečné že se je microsoft rozhodl integrovat přímo do .Netu a od verze 5 můžeme
+Tyto analyzátory byly tak užitečné že se je microsoft rozhodl integrovat přímo do .NETu a od verze 5 můžeme
 přidat flag `EnableNETAnalyzers` který spustí FxCop
 analyzátory. [Zde](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview)
 je příklad některých warningů které budou zapnuty.
@@ -181,7 +181,7 @@ Jak spustit analyzátory v editorconfigu se dočtete dále (TODO odkaz).
 
 ### \<EnforceCodeStyleInBuild>true\</EnforceCodeStyleInBuild>
 
-``EnforceCodeStyleInBuild`` přidá další analyzátory které kontrolují code style podle toho jak nastavíte editor config. 
+``EnforceCodeStyleInBuild`` přidá další analyzátory které kontrolují code style podle toho jak nastavíte `editorconfig`. 
 Seznam errorů můžete najít [zde](https://github.com/dotnet/roslyn/blob/main/src/Analyzers/Core/Analyzers/EnforceOnBuildValues.cs).
 
 ### \<Features>strict\</Features>
@@ -223,11 +223,10 @@ ve všech assembly.
 
 ## Directory.Packages.props
 
-.Net 7 přinesl nový způsob managování nuget balíčků pomocí centrálního nastavení verzí který
-umoňuje definovat všechny verze nuget balíčků v souboru `Directory.Packages.props`.
-Nastavení verzí balíčků na jednom místě umožňuje jednodušší updatování balíčků.
+.NET 7 přinesl nový způsob referencování nuget balíčků pomocí centrálního nastavení verzí. Centrální
+nastavení verzí umoňuje definovat všechny verze nuget balíčků v souboru `Directory.Packages.props`.
 
-Následující příklad ukazuje jak vypadá centrální managment balíčků
+Následující příklad ukazuje jak vypadá centrální managment balíčků:
 
 ```xml
 <!-- soubor Directory.Packages.props v rootu soultion-->
@@ -249,7 +248,8 @@ Následující příklad ukazuje jak vypadá centrální managment balíčků
 </ItemGroup>
 ```
 
-Centrální package managment podporuje tag `GlobalPackageReference` který způsobí že
+Centrální nastavení verzí podporuje [kromě jiných funkcionalit](https://devblogs.microsoft.com/nuget/introducing-central-package-management/) 
+také tag `GlobalPackageReference` který způsobí že
 daný package bude implicitně referencován všemi csproji v solution. Tento tag
 je důležitý pro naše solutions protože ho používáme pro defaultní nastavení.
 
@@ -276,7 +276,7 @@ Přidáváme tedy do všech csprojů package `StyleCop.Analyzers` a `JetBrains.A
 
 #### StyleCop.Analyzers
 
-StyleCop je package který obsahuje analyzátory kontrolující styl kódu na které .editorconfig už nestačí.
+`StyleCop` je package který obsahuje analyzátory kontrolující styl kódu na které `.editorconfig` už nestačí.
 Například počet povolených řádků mezi metodami,
 zarovnání závorek u prázdné metody a
 mnoho [dalších](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/DOCUMENTATION.md).
