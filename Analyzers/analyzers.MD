@@ -1,6 +1,6 @@
 # Analyzátory, .editorconfig a další nastavení které používáme
 
-V posledních letech přibylo v .netu nespočetné množství analyzátorů a
+V posledních letech přibylo v .NETu nespočetné množství analyzátorů a
 nastavení se kterými není jednoduché udržet krok. V následujících
 odstavcích se proto pokusím představit nastavení které používáme na 
 našich projektech.
