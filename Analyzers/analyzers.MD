@@ -59,7 +59,7 @@ jednodušší update na novou verzi .netu.
 
 ### LangVersion
 
-Tento parameter je nepovinný ale velice užitečný. Pokud máte na svém počítači nainstalovaných více verzí .netu tak
+Tento parameter je nepovinný ale velice užitečný. Pokud máte na svém počítači nainstalovaných více verzí .NETu tak
 compilátor
 automaticky předpokládá že používáte tu nejnovější a nabízí vám nejnovější C# featury (nehledně na to jak nastavíte
 TargetFramework).
@@ -67,7 +67,7 @@ TargetFramework).
 Pokud jste ale ještě nezmigrovali váš projekt na nejnovější verzi C# tak se vám může stát že lokálně použijete nové
 funkce
 .netu a vše se bude tvářit funkčně. Když ale pushnete vaše změny tak vám build server může oznámit že
-nové funkce nepodporuje protože nemá nainstalované nejnovější .NET. Abychom těmto chybám předešli tak vždy tento flag
+nové funkce nepodporuje protože nemá nainstalovaný nejnovější .NET. Abychom těmto chybám předešli tak vždy tento flag
 nastavujeme na
 správnou verzi C#.
 
