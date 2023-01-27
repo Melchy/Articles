@@ -12,7 +12,7 @@ TODO odkaz
 ## .editorConfig, Directory.Build.props a Directory.Packages.props
 
 `Directory.Build.props` je soubor který po přidání do rootu solution nastavuje všechny .csproj
-soubory v dané solution. Formát tohoto souboru je stejný jako formát csproje a zjednodueně funguje tak že se
+soubory v dané solution. Formát tohoto souboru je stejný jako formát csproje a zjednodušeně funguje tak že se
 jeho obsah rozkopíruje do všech .csproj souborů v soulution. Je to tedy ideální místo pro
 globáoní nastavení.
 
