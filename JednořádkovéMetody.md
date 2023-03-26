@@ -1,7 +1,7 @@
 ## Jednořádkové metody
 
 V některých případech je velice užitečné používat jednořádkové metody k lepšímu vysvětlení kódu
-čtenáři. Například následující kód nemusí být na první pohled jednodušše čitelný:
+čtenáři. Například následující kód nemusí být na první pohled jednoduše čitelný:
 
 ```csharp
 public IEnumerable<Products> GetProducts()
@@ -13,10 +13,10 @@ public IEnumerable<Products> GetProducts()
 ```
 
 `products.OrderBy(x => !x.IsDisabled)` přesune disablované produkty na konec seznamu.
-Tento kód není nijak složitý ale i přes to na první pohled vyjadřuje něco jiného než co
+Tento kód není nijak složitý, přesto na první pohled vyjadřuje něco jiného, než co
 od metody `OrderBy` běžně očekáváme.
 
-Abychom četení kódu zjednodušili tak můžeme použít jednořádkovou metodu:
+Abychom čtení kódu zjednodušili, můžeme použít jednořádkovou metodu:
 
 ```csharp
 public IEnumerable<Product> PlaceDisabledProductsToTheEndOfCollection(this IEnumberalbe<Product> products){
@@ -24,12 +24,12 @@ public IEnumerable<Product> PlaceDisabledProductsToTheEndOfCollection(this IEnum
 }
 ```
 
-I přes to že je název metody delší než řazení samotné tak to nevadí. Podstatné je že metoda lépe vyjadřuje
+Přestože je název metody delší než řazení samotné, tak to nevadí. Podstatné je, že metoda lépe vyjadřuje,
 co se snažíme udělat.
 
 ### Házení kostkou
 
-Pokud bysme programovali hru ve které se hází kostkou tak bysme
+Pokud bychom programovali hru, ve které se hází kostkou, tak bychom
 někde v kódu museli generovat náhodné číslo pro hod:
 
 ```csharp
@@ -41,7 +41,7 @@ public void DoMove(){
 
 ```
 
-V tomto případě bysme také mohly generoví čísla nahradit jednořádkovou metodu:
+V tomto případě bychom také mohli generování čísla nahradit jednořádkovou metodu:
 
 ```csharp
 public int ThrowADice(){
@@ -49,7 +49,7 @@ public int ThrowADice(){
 }
 ```
 
-Touto metodou navádíme čtenáře aby si představil reálné házení kostkou a tím i hru kterou programujeme.
+Touto metodou navádíme čtenáře, aby si představil reálné házení kostkou a tím i hru, kterou programujeme.
 
 ### Smalltalk od Martina Fowlera
 
@@ -60,7 +60,7 @@ whose implementation was just a call to the method 'reverse'. The name of the me
 implementation -
 but that didn't matter because there was a big distance between the intention of the code and its implementation."
 
-V C# by mohl tento příklad vypadat nějak takhle:
+V C# by mohl tento příklad vypadat následovně:
 
 ```csharp
 public void Main()
@@ -71,7 +71,7 @@ public void Main()
 }
 ```
 
-Kentu Backovi se tento kód nezdál dostatečně čitelný a proto přidal následující metodu:
+Kentu Backovi se tento kód nezdál dostatečně čitelný, a proto přidal následující metodu:
 
 ```csharp
 public void Higlight(string text)
@@ -82,7 +82,7 @@ public void Higlight(string text)
 
 ### Složité podmínky
 
-Dalším místem kde je možné použít jednořádkové metody jsou složité Ify.
+Dalším místem, kde je možné použít jednořádkové metody jsou složité Ify.
 Například:
 
 ```csharp
@@ -99,7 +99,7 @@ package.Slot != null
 ///...
 ```
 
-Tento kód bysme mohly přepsat následujícím způsobem:
+Tento kód bychom mohli přepsat následujícím způsobem:
 
 ```csharp
 ///...

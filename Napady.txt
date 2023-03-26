@@ -9,8 +9,6 @@ Project setup
 Make it private - encapsulate all you can
 
 
-Proc kdyz pridavani interfacu je na prd tak neni na prd i to ze musis pouzivat DI pro servisi ktere nemaji stav. 
-
 
 Dynamic dyspatch a visitor - nahradit switchem s analyzatory
 
@@ -33,3 +31,7 @@ validace na zacatek metody.
 Single or multiple dtos per endpoint?
 
 Api guidlines
+
+Unit tests vs Integration tests - pojmenovani nedava smysl
+
+EF - connection pool (hlavne postgresql)

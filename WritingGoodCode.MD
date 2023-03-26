@@ -383,15 +383,23 @@ else
 
 ### Pravidlo
 
+## Stripky z code review - kod by měl odpovídat realitě
+
+Mas seznam uz carovych kodů k nacteni a zobrazujes fajfky u tech ktere uz byly nactene.
+Pri naskenovani alzaport balicku se deje zvlastni vec kuryr muze nalepit svuj sticker. Do pole naskenovanych carovych
+kodu
+se pak prida kuryruv sticker ktery ale neodpovida carovemu kodu baliku. Musis tedy do seznamu nactenych pridat i
+carovy kod baliku abys mohl zjistit kde zobrazit checkmark.
+
 ## Střípky z code review 11 - Dobře definovaný objekt
 
 ### Problém
+
 ### Fix
+
 ### Pravidlo
 
-
 https://gitlab.notino.com/web/navigationapi/-/merge_requests/119#note_415321
-
 
 ## Střípky z code review 11 - Konstruktory
 
@@ -421,6 +429,21 @@ return _alarmActivationStates.Contains(e.ToState) && e.FromState == QuidoSlotSta
 
 return !IsSuspectTransition(e) && !(e.FromState == QuidoSlotState.Locked && e.ToState == QuidoSlotState.Open) && !(
 e.FromState == QuidoSlotState.Open && e.ToState == QuidoSlotState.Locked);
+
+## Stripky z code review 12 - explicitni vyjadreni kodu
+
+// Tahle vetev mohla nastat i kdyz to byl alzaport ale z kodu to neni vubec jasne
+if (Context.Model.CurrentReturn.ParcelPackages.Any(x => x.BarCode == scannedBarcode))
+{
+await UpdatePackageStatusOnReturningByDelivery(scannedBarcode);
+return;
+}
+
+if (Context.Model.CurrentReturn.ParcelFlowType is ParcelFlowType.Inlet)
+{
+await ProcessAlzaPortCourierSticker(scannedBarcode);
+return;
+}
 
 //Hard topics
 
